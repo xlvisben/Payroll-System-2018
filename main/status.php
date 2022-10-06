@@ -2,7 +2,7 @@
 include('header.php');
 $id=$_REQUEST['id'];
 $query="SELECT  * FROM projectstatus where id='$id'";
-$result=mysqli_query($GLOBALS['connect'], ($query);
+$result=mysqli_query($GLOBALS['connect'],$query);
 $row=mysqli_fetch_array($result);
 ?>
           

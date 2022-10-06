@@ -3,9 +3,9 @@ include('header.php');
 $user=$_SESSION['user'];
 $period=$_REQUEST['period'];
 if ($period=="all") {
-    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM empvsovertime where status='0'");
+    $seresult=mysqli_query($GLOBALS['connect'],"SELECT * FROM empvsovertime where status='0'");
 }elseif ($period!="all") {
-    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM empvsovertime where status='0' and period='$period'");
+    $seresult=mysqli_query($GLOBALS['connect'],"SELECT * FROM empvsovertime where status='0' and period='$period'");
 }
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -76,7 +76,7 @@ if ($period=="all") {
         <?php
             $oid=$s['id'];
             $pid=$s['empid'];
-            $s1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT staff_name FROM staff WHERE payrollno='$pid' "));
+            $s1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT staff_name FROM staff WHERE payrollno='$pid' "));
             $sname=$s1['staff_name'];
         ?>
         <td><?php echo $sname?> </td>

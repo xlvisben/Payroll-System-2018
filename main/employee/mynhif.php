@@ -3,9 +3,9 @@ include('header.php');
 $user=$_SESSION['user'];
 $period=$_REQUEST['period'];
 if ($period=="all") {
-  $result=mysqli_query($GLOBALS['connect'], ("SELECT  * FROM payroll_tbl WHERE status='1' and payrollno='$user' ORDER BY id DESC ");
+  $result=mysqli_query($GLOBALS['connect'],"SELECT  * FROM payroll_tbl WHERE status='1' and payrollno='$user' ORDER BY id DESC ");
 }elseif ($period!="all") {
-$result=mysqli_query($GLOBALS['connect'], ("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun='$period' and payrollno='$user' ORDER BY id DESC ");
+$result=mysqli_query($GLOBALS['connect'],"SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun='$period' and payrollno='$user' ORDER BY id DESC ");
 }
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
@@ -70,7 +70,7 @@ $result=mysqli_query($GLOBALS['connect'], ("SELECT  * FROM payroll_tbl WHERE sta
                     <td><?php echo $row["sname"]?></td>
                     <?php 
                     $id=$row["staffid"];
-                     $n1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT nhifno FROM staff WHERE id='$id'"));
+                     $n1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT nhifno FROM staff WHERE id='$id'"));
                      $n=$n1['nhifno'];
                         ?>
                     <td><?php echo $n ?></td>

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Jan 24, 2020 at 06:58 AM
--- Server version: 5.7.28
--- PHP Version: 5.6.40
+-- Host: localhost
+-- Generation Time: Oct 06, 2022 at 10:56 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `barlettah`
+-- Database: `payroll_test_one`
 --
 
 -- --------------------------------------------------------
@@ -29,13 +28,12 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `bankbranch`;
-CREATE TABLE IF NOT EXISTS `bankbranch` (
+CREATE TABLE `bankbranch` (
   `code` varchar(3) NOT NULL,
   `bname` varchar(100) NOT NULL,
   `bankCode` varchar(3) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1056 DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bankbranch`
@@ -1017,13 +1015,12 @@ INSERT INTO `bankbranch` (`code`, `bname`, `bankCode`, `id`) VALUES
 --
 
 DROP TABLE IF EXISTS `banks`;
-CREATE TABLE IF NOT EXISTS `banks` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `banks` (
+  `id` bigint(20) NOT NULL,
   `bank` varchar(255) NOT NULL,
   `bcode` varchar(3) NOT NULL,
-  `countryId` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=138 DEFAULT CHARSET=latin1;
+  `countryId` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `banks`
@@ -1086,15 +1083,14 @@ INSERT INTO `banks` (`id`, `bank`, `bcode`, `countryId`) VALUES
 --
 
 DROP TABLE IF EXISTS `bank_to_cashbook`;
-CREATE TABLE IF NOT EXISTS `bank_to_cashbook` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bank_to_cashbook` (
+  `id` int(11) NOT NULL,
   `amount` varchar(45) NOT NULL,
   `recordedby` varchar(45) NOT NULL,
   `dateadded` date NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `particulars` longtext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `particulars` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bank_to_cashbook`
@@ -1110,17 +1106,29 @@ INSERT INTO `bank_to_cashbook` (`id`, `amount`, `recordedby`, `dateadded`, `date
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cashtransactions`
+--
+
+DROP TABLE IF EXISTS `cashtransactions`;
+CREATE TABLE `cashtransactions` (
+  `id` int(100) NOT NULL,
+  `available_balance` varchar(255) NOT NULL,
+  `fyr` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `deductions`
 --
 
 DROP TABLE IF EXISTS `deductions`;
-CREATE TABLE IF NOT EXISTS `deductions` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `deductions` (
+  `id` int(20) NOT NULL,
   `deduction` varchar(255) NOT NULL,
   `pre_tax` varchar(1) NOT NULL,
-  `countryId` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  `countryId` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `deductions`
@@ -1140,12 +1148,11 @@ INSERT INTO `deductions` (`id`, `deduction`, `pre_tax`, `countryId`) VALUES
 --
 
 DROP TABLE IF EXISTS `dept`;
-CREATE TABLE IF NOT EXISTS `dept` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `dept` (
+  `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dept`
@@ -1167,12 +1174,11 @@ INSERT INTO `dept` (`id`, `name`, `datemodified`) VALUES
 --
 
 DROP TABLE IF EXISTS `empdeductions`;
-CREATE TABLE IF NOT EXISTS `empdeductions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empdeductions` (
+  `id` int(11) NOT NULL,
   `employeeId` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `empdeductionid` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `empdeductionid` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1182,14 +1188,13 @@ CREATE TABLE IF NOT EXISTS `empdeductions` (
 --
 
 DROP TABLE IF EXISTS `empvsadvances`;
-CREATE TABLE IF NOT EXISTS `empvsadvances` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empvsadvances` (
+  `id` bigint(20) NOT NULL,
   `empid` bigint(20) NOT NULL,
   `amount` double NOT NULL,
-  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `payrollPeriod` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+  `dateadded` timestamp NOT NULL DEFAULT current_timestamp(),
+  `payrollPeriod` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1198,7 +1203,7 @@ CREATE TABLE IF NOT EXISTS `empvsadvances` (
 --
 
 DROP TABLE IF EXISTS `empvsdepartment`;
-CREATE TABLE IF NOT EXISTS `empvsdepartment` (
+CREATE TABLE `empvsdepartment` (
   `empId` int(11) NOT NULL,
   `departmentId` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1210,18 +1215,17 @@ CREATE TABLE IF NOT EXISTS `empvsdepartment` (
 --
 
 DROP TABLE IF EXISTS `empvsleaves`;
-CREATE TABLE IF NOT EXISTS `empvsleaves` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empvsleaves` (
+  `id` bigint(20) NOT NULL,
   `empid` bigint(20) NOT NULL,
   `datefrom` date NOT NULL,
   `dateto` date NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
+  `status` int(11) NOT NULL DEFAULT 0,
   `type` varchar(255) NOT NULL,
   `days` float NOT NULL,
-  `approvaldate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `period` varchar(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+  `approvaldate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  `period` varchar(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1230,18 +1234,17 @@ CREATE TABLE IF NOT EXISTS `empvsleaves` (
 --
 
 DROP TABLE IF EXISTS `empvsloans`;
-CREATE TABLE IF NOT EXISTS `empvsloans` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empvsloans` (
+  `id` bigint(20) NOT NULL,
   `empid` bigint(20) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
   `loanid` bigint(20) NOT NULL,
   `amount` double NOT NULL,
   `name` varchar(30) NOT NULL,
   `pay_period` float NOT NULL,
   `interest_rate` float NOT NULL,
-  `total_amount_payable` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+  `total_amount_payable` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1250,21 +1253,20 @@ CREATE TABLE IF NOT EXISTS `empvsloans` (
 --
 
 DROP TABLE IF EXISTS `empvsovertime`;
-CREATE TABLE IF NOT EXISTS `empvsovertime` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empvsovertime` (
+  `id` bigint(20) NOT NULL,
   `empid` bigint(20) NOT NULL,
   `datefrom` date NOT NULL,
   `dateto` date NOT NULL,
   `timefrom` time NOT NULL,
   `timeto` time NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` int(11) NOT NULL DEFAULT '0',
-  `hrs` float NOT NULL DEFAULT '0',
-  `rate` float NOT NULL DEFAULT '0',
-  `totalamount` float NOT NULL DEFAULT '0',
-  `period` varchar(500) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` int(11) NOT NULL DEFAULT 0,
+  `hrs` float NOT NULL DEFAULT 0,
+  `rate` float NOT NULL DEFAULT 0,
+  `totalamount` float NOT NULL DEFAULT 0,
+  `period` varchar(500) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `empvsovertime`
@@ -1283,12 +1285,11 @@ INSERT INTO `empvsovertime` (`id`, `empid`, `datefrom`, `dateto`, `timefrom`, `t
 --
 
 DROP TABLE IF EXISTS `leaves`;
-CREATE TABLE IF NOT EXISTS `leaves` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `leaves` (
+  `id` int(11) NOT NULL,
   `name` varchar(34) NOT NULL,
-  `days` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `days` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `leaves`
@@ -1306,15 +1307,14 @@ INSERT INTO `leaves` (`id`, `name`, `days`) VALUES
 
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
- `id` int(11) NOT NULL AUTO_INCREMENT,
- `staffid` int(11) NOT NULL,
- `msg` text NOT NULL,
- `touser` varchar(20) NOT NULL,
- `uname` varchar(20) NOT NULL,
- `status` tinyint(1) NOT NULL DEFAULT 0,
- `datesent` timestamp NOT NULL DEFAULT current_timestamp(),
- PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1
+  `id` int(11) NOT NULL,
+  `staffid` int(11) NOT NULL,
+  `msg` text NOT NULL,
+  `touser` varchar(20) NOT NULL,
+  `uname` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `datesent` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1323,11 +1323,10 @@ CREATE TABLE `messages` (
 --
 
 DROP TABLE IF EXISTS `payrollruns`;
-CREATE TABLE IF NOT EXISTS `payrollruns` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `payrollruns` (
+  `id` int(11) NOT NULL,
   `period` varchar(45) NOT NULL,
-  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  `dateadded` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1337,33 +1336,32 @@ CREATE TABLE IF NOT EXISTS `payrollruns` (
 --
 
 DROP TABLE IF EXISTS `payroll_tbl`;
-CREATE TABLE IF NOT EXISTS `payroll_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `payroll_tbl` (
+  `id` int(11) NOT NULL,
   `payrollrun` varchar(200) NOT NULL,
   `staffid` varchar(45) NOT NULL,
   `payrollno` varchar(76) NOT NULL,
   `sname` varchar(200) NOT NULL,
-  `salary` double NOT NULL DEFAULT '0',
-  `lunch` double NOT NULL DEFAULT '0',
-  `allowance` double NOT NULL DEFAULT '0',
-  `commission` double NOT NULL DEFAULT '0',
-  `balance_bf` int(11) NOT NULL DEFAULT '0',
-  `totalbenefits` double NOT NULL DEFAULT '0',
-  `nhif` double NOT NULL DEFAULT '0',
-  `nssf` double NOT NULL DEFAULT '1080',
-  `advance` double NOT NULL DEFAULT '0',
-  `overtime` double NOT NULL DEFAULT '0',
-  `surrcharge` double NOT NULL DEFAULT '0',
-  `helb` double NOT NULL DEFAULT '0',
-  `deduction` double NOT NULL DEFAULT '0',
-  `totaldeductions` int(11) NOT NULL DEFAULT '0',
-  `taxableincome` double NOT NULL DEFAULT '0',
-  `tax` double NOT NULL DEFAULT '0',
-  `netpay` double NOT NULL DEFAULT '0',
+  `salary` double NOT NULL DEFAULT 0,
+  `lunch` double NOT NULL DEFAULT 0,
+  `allowance` double NOT NULL DEFAULT 0,
+  `commission` double NOT NULL DEFAULT 0,
+  `balance_bf` int(11) NOT NULL DEFAULT 0,
+  `totalbenefits` double NOT NULL DEFAULT 0,
+  `nhif` double NOT NULL DEFAULT 0,
+  `nssf` double NOT NULL DEFAULT 1080,
+  `advance` double NOT NULL DEFAULT 0,
+  `overtime` double NOT NULL DEFAULT 0,
+  `surrcharge` double NOT NULL DEFAULT 0,
+  `helb` double NOT NULL DEFAULT 0,
+  `deduction` double NOT NULL DEFAULT 0,
+  `totaldeductions` int(11) NOT NULL DEFAULT 0,
+  `taxableincome` double NOT NULL DEFAULT 0,
+  `tax` double NOT NULL DEFAULT 0,
+  `netpay` double NOT NULL DEFAULT 0,
   `daterun` date NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1373,7 +1371,7 @@ CREATE TABLE IF NOT EXISTS `payroll_tbl` (
 --
 
 DROP TABLE IF EXISTS `settings`;
-CREATE TABLE IF NOT EXISTS `settings` (
+CREATE TABLE `settings` (
   `id` int(11) NOT NULL,
   `main_name` varchar(200) NOT NULL,
   `main_location` varchar(200) NOT NULL,
@@ -1381,8 +1379,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `main_address` varchar(200) DEFAULT NULL,
   `email` varchar(200) NOT NULL,
   `dateadded` date NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1399,13 +1396,12 @@ INSERT INTO `settings` (`id`, `main_name`, `main_location`, `main_tel`, `main_ad
 --
 
 DROP TABLE IF EXISTS `smssettings`;
-CREATE TABLE IF NOT EXISTS `smssettings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `smssettings` (
+  `id` int(11) NOT NULL,
   `username` varchar(200) NOT NULL,
   `senderid` varchar(200) NOT NULL,
-  `api` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `api` varchar(300) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `smssettings`
@@ -1421,8 +1417,8 @@ INSERT INTO `smssettings` (`id`, `username`, `senderid`, `api`) VALUES
 --
 
 DROP TABLE IF EXISTS `staff`;
-CREATE TABLE IF NOT EXISTS `staff` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `staff` (
+  `id` int(11) NOT NULL,
   `national_id` varchar(200) NOT NULL,
   `staff_name` varchar(200) NOT NULL,
   `staff_email` varchar(200) DEFAULT NULL,
@@ -1433,16 +1429,14 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `nssfno` varchar(200) DEFAULT NULL,
   `pinno` varchar(200) DEFAULT NULL,
   `dateadded` date NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `salary` double DEFAULT '0',
-  `allowance` double DEFAULT '0',
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `salary` double DEFAULT 0,
+  `allowance` double DEFAULT 0,
   `bankcode` varchar(45) DEFAULT NULL,
   `branchcode` varchar(45) DEFAULT NULL,
   `accountno` varchar(45) DEFAULT NULL,
   `accountname` varchar(145) DEFAULT NULL,
-  `payrollno` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `national_id` (`national_id`)
+  `payrollno` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1452,12 +1446,11 @@ CREATE TABLE IF NOT EXISTS `staff` (
 --
 
 DROP TABLE IF EXISTS `stafftype`;
-CREATE TABLE IF NOT EXISTS `stafftype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stafftype` (
+  `id` int(11) NOT NULL,
   `type_name` varchar(200) NOT NULL,
-  `deptid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+  `deptid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `stafftype`
@@ -1500,8 +1493,8 @@ INSERT INTO `stafftype` (`id`, `type_name`, `deptid`) VALUES
 --
 
 DROP TABLE IF EXISTS `staff_copy`;
-CREATE TABLE IF NOT EXISTS `staff_copy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `staff_copy` (
+  `id` int(11) NOT NULL,
   `national_id` varchar(200) DEFAULT NULL,
   `staff_name` varchar(200) DEFAULT NULL,
   `staff_email` varchar(200) DEFAULT NULL,
@@ -1512,16 +1505,14 @@ CREATE TABLE IF NOT EXISTS `staff_copy` (
   `nssfno` varchar(200) DEFAULT NULL,
   `pinno` varchar(200) DEFAULT NULL,
   `dateadded` date DEFAULT NULL,
-  `datemodified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `salary` double DEFAULT '0',
-  `allowance` double DEFAULT '0',
+  `datemodified` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `salary` double DEFAULT 0,
+  `allowance` double DEFAULT 0,
   `bankcode` varchar(45) DEFAULT NULL,
   `branchcode` varchar(45) DEFAULT NULL,
   `accountno` varchar(45) DEFAULT NULL,
   `accountname` varchar(145) DEFAULT NULL,
-  `payrollno` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `national_id` (`national_id`)
+  `payrollno` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1531,8 +1522,8 @@ CREATE TABLE IF NOT EXISTS `staff_copy` (
 --
 
 DROP TABLE IF EXISTS `staff_old`;
-CREATE TABLE IF NOT EXISTS `staff_old` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `staff_old` (
+  `id` int(11) NOT NULL,
   `national_id` varchar(200) NOT NULL,
   `staff_name` varchar(200) NOT NULL,
   `staff_email` varchar(200) DEFAULT NULL,
@@ -1543,16 +1534,14 @@ CREATE TABLE IF NOT EXISTS `staff_old` (
   `nssfno` varchar(200) DEFAULT NULL,
   `pinno` varchar(200) DEFAULT NULL,
   `dateadded` date NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `salary` double DEFAULT '0',
-  `allowance` double DEFAULT '0',
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `salary` double DEFAULT 0,
+  `allowance` double DEFAULT 0,
   `bankcode` varchar(45) DEFAULT NULL,
   `branchcode` varchar(45) DEFAULT NULL,
   `accountno` varchar(45) DEFAULT NULL,
   `accountname` varchar(145) DEFAULT NULL,
-  `payrollno` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `national_id` (`national_id`)
+  `payrollno` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1562,24 +1551,22 @@ CREATE TABLE IF NOT EXISTS `staff_old` (
 --
 
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(10) NOT NULL,
   `fullname` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `account_type` int(20) NOT NULL DEFAULT '0',
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  `account_type` int(20) NOT NULL DEFAULT 0,
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `fullname`, `email`, `password`, `account_type`, `datemodified`) VALUES
-(1, 'Admin Guy', 'Admin Guy', 'admin@hr.com', '21232f297a57a5a743894a0e4a801fc3', 0, '2020-01-24 06:56:09');
+(1, 'Admin Guy', 'Admin Guy', 'admin@hr.com', '25d55ad283aa400af464c76d713c07ad', 0, '2022-10-06 07:29:47');
 
 -- --------------------------------------------------------
 
@@ -1588,14 +1575,12 @@ INSERT INTO `users` (`id`, `username`, `fullname`, `email`, `password`, `account
 --
 
 DROP TABLE IF EXISTS `wageruns`;
-CREATE TABLE IF NOT EXISTS `wageruns` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wageruns` (
+  `id` int(11) NOT NULL,
   `wageid` varchar(40) NOT NULL,
   `period` varchar(10) NOT NULL,
-  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `wageid` (`wageid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `dateadded` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wageruns`
@@ -1611,8 +1596,8 @@ INSERT INTO `wageruns` (`id`, `wageid`, `period`, `dateadded`) VALUES
 --
 
 DROP TABLE IF EXISTS `wages`;
-CREATE TABLE IF NOT EXISTS `wages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wages` (
+  `id` int(11) NOT NULL,
   `wageid` varchar(40) NOT NULL,
   `name` varchar(56) NOT NULL,
   `idno` varchar(45) NOT NULL,
@@ -1627,11 +1612,10 @@ CREATE TABLE IF NOT EXISTS `wages` (
   `nssf` double NOT NULL,
   `tot` double NOT NULL,
   `dateadded` date NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `datemodified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `startdate` date NOT NULL,
-  `enddate` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `enddate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wages`
@@ -1641,6 +1625,301 @@ INSERT INTO `wages` (`id`, `wageid`, `name`, `idno`, `mon`, `tue`, `wed`, `thur`
 (1, 'DDWG-WAGES-X9090-1', 'Simon Mbugua', '2566658', 2000, 2000, 2000, 2000, 2000, 2000, 0, 0, 0, 12000, '2017-08-18', '2017-08-18 16:06:22', '2017-08-13', '2017-08-19'),
 (2, 'DDWG-WAGES-X9090-1', 'phillip amwayi', '2533665', 0, 0, 0, 1000, 1000, 0, 0, 0, 0, 2000, '2017-08-18', '2017-08-18 16:06:22', '2017-08-13', '2017-08-19'),
 (3, 'DDWG-WAGES-X9090-1', 'jane wanjiru', '2225225', 500, 500, 500, 500, 500, 0, 0, 0, 0, 2500, '2017-08-18', '2017-08-18 16:06:22', '2017-08-13', '2017-08-19');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `bankbranch`
+--
+ALTER TABLE `bankbranch`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `banks`
+--
+ALTER TABLE `banks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bank_to_cashbook`
+--
+ALTER TABLE `bank_to_cashbook`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cashtransactions`
+--
+ALTER TABLE `cashtransactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `deductions`
+--
+ALTER TABLE `deductions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dept`
+--
+ALTER TABLE `dept`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `empdeductions`
+--
+ALTER TABLE `empdeductions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `empvsadvances`
+--
+ALTER TABLE `empvsadvances`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `empvsleaves`
+--
+ALTER TABLE `empvsleaves`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `empvsloans`
+--
+ALTER TABLE `empvsloans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `empvsovertime`
+--
+ALTER TABLE `empvsovertime`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leaves`
+--
+ALTER TABLE `leaves`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payrollruns`
+--
+ALTER TABLE `payrollruns`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payroll_tbl`
+--
+ALTER TABLE `payroll_tbl`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `smssettings`
+--
+ALTER TABLE `smssettings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `national_id` (`national_id`);
+
+--
+-- Indexes for table `stafftype`
+--
+ALTER TABLE `stafftype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `staff_copy`
+--
+ALTER TABLE `staff_copy`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `national_id` (`national_id`);
+
+--
+-- Indexes for table `staff_old`
+--
+ALTER TABLE `staff_old`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `national_id` (`national_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`,`email`);
+
+--
+-- Indexes for table `wageruns`
+--
+ALTER TABLE `wageruns`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `wageid` (`wageid`);
+
+--
+-- Indexes for table `wages`
+--
+ALTER TABLE `wages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bankbranch`
+--
+ALTER TABLE `bankbranch`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1056;
+
+--
+-- AUTO_INCREMENT for table `banks`
+--
+ALTER TABLE `banks`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+
+--
+-- AUTO_INCREMENT for table `bank_to_cashbook`
+--
+ALTER TABLE `bank_to_cashbook`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `cashtransactions`
+--
+ALTER TABLE `cashtransactions`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deductions`
+--
+ALTER TABLE `deductions`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `dept`
+--
+ALTER TABLE `dept`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `empdeductions`
+--
+ALTER TABLE `empdeductions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `empvsadvances`
+--
+ALTER TABLE `empvsadvances`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `empvsleaves`
+--
+ALTER TABLE `empvsleaves`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT for table `empvsloans`
+--
+ALTER TABLE `empvsloans`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `empvsovertime`
+--
+ALTER TABLE `empvsovertime`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `leaves`
+--
+ALTER TABLE `leaves`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payrollruns`
+--
+ALTER TABLE `payrollruns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payroll_tbl`
+--
+ALTER TABLE `payroll_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `smssettings`
+--
+ALTER TABLE `smssettings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `stafftype`
+--
+ALTER TABLE `stafftype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `staff_copy`
+--
+ALTER TABLE `staff_copy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `staff_old`
+--
+ALTER TABLE `staff_old`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `wageruns`
+--
+ALTER TABLE `wageruns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `wages`
+--
+ALTER TABLE `wages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

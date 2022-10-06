@@ -1,9 +1,9 @@
 <?php
 include('header.php');
 $usr=$_SESSION['user'];
-$msg=mysqli_query($GLOBALS['connect'], ("SELECT * FROM messages where uname='$usr' ORDER BY datesent DESC");
-$msgCOUNT=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c FROM messages where touser='$usr' && status='0'"));
-$msgsent=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c FROM messages where uname='$usr'"));
+$msg=mysqli_query($GLOBALS['connect'],"SELECT * FROM messages where uname='$usr' ORDER BY datesent DESC");
+$msgCOUNT=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM messages where touser='$usr' && status='0'"));
+$msgsent=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM messages where uname='$usr'"));
 $no= $msgCOUNT['c'];
 $nosent= $msgsent['c'];
 ?>
@@ -85,7 +85,7 @@ $nosent= $msgsent['c'];
                 <?php
                 $status=$msgrows['status'];
                 $usr=$msgrows['uname'];
-                $fquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT fullname FROM users WHERE username='$usr'"));
+                $fquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT fullname FROM users WHERE username='$usr'"));
                 $fname=$fquery['fullname'];
                 $msgsub=$msgrows['msgsub'];
                 $datesent=$msgrows['datesent'];

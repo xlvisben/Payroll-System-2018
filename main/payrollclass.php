@@ -8,7 +8,7 @@ if ($_GET['action']=="postbenefits") {
 //check if run already
 
 
-mysqli_query($GLOBALS['connect'], ("INSERT INTO payrollruns (period)values('$period')");
+mysqli_query($GLOBALS['connect'],"INSERT INTO payrollruns (period)values('$period')");
 
 		for($i=0;$i<count($_POST['lunch']);$i++)
 			{
@@ -20,25 +20,25 @@ mysqli_query($GLOBALS['connect'], ("INSERT INTO payrollruns (period)values('$per
 				$benefits= $_POST['ben'][$i];
 				$bf= $_POST['bf'][$i];
 				$date=date('Y-m-d');
-					$staff=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM staff WHERE id='$id'"));
-					$sname=mysql_escape_string($staff['staff_name']);
+					$staff=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT * FROM staff WHERE id='$id'"));
+					$sname=mysqli_escape_string($GLOBALS['connect'], $staff['staff_name']);
 					$sal=$staff['salary'];
 					$pno=$staff['payrollno'];
 					//echo $id ."".$sname ."".$sal ."<br>";
 //payroll runs table
 					/*
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * from payrollruns WHERE period='$period'");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * from payrollruns WHERE period='$period'");
 $num=mysqli_num_rows($result);
 if ($result='0') {
-	mysqli_query($GLOBALS['connect'], ("INSERT INTO payrollruns (period)values('$period')");
+	mysqli_query($GLOBALS['connect'],"INSERT INTO payrollruns (period)values('$period')");
 }elseif ($result>0) {
 
-	mysqli_query($GLOBALS['connect'], ("UPDATE payrollruns set period='$period' where period='$period'");
+	mysqli_query($GLOBALS['connect'],"UPDATE payrollruns set period='$period' where period='$period'");
 }
 */
-//mysqli_query($GLOBALS['connect'], ("INSERT INTO payroll_tbl(payrollrun,staffid,payrollno,sname,salary,lunch,allowance,commission,overtime,totalbenefits,daterun,balance_bf)values('$period','$id','$pno','$sname','$sal','$lunch','$allowance','$commission','$overtime','$benefits','$date','$bf')");
+//mysqli_query($GLOBALS['connect'],"INSERT INTO payroll_tbl(payrollrun,staffid,payrollno,sname,salary,lunch,allowance,commission,overtime,totalbenefits,daterun,balance_bf)values('$period','$id','$pno','$sname','$sal','$lunch','$allowance','$commission','$overtime','$benefits','$date','$bf')");
 
-mysqli_query($GLOBALS['connect'], ("INSERT INTO payroll_tbl(payrollrun,staffid,payrollno,sname,salary,lunch,allowance,overtime,totalbenefits,daterun,balance_bf)values('$period','$id','$pno','$sname','$sal','$lunch','$allowance','$overtime','$benefits','$date','$bf')");
+mysqli_query($GLOBALS['connect'],"INSERT INTO payroll_tbl(payrollrun,staffid,payrollno,sname,salary,lunch,allowance,overtime,totalbenefits,daterun,balance_bf)values('$period','$id','$pno','$sname','$sal','$lunch','$allowance','$overtime','$benefits','$date','$bf')");
 
 					
 				//echo "<script>alert('Success')</script>";
@@ -68,13 +68,13 @@ mysqli_query($GLOBALS['connect'], ("INSERT INTO payroll_tbl(payrollrun,staffid,p
 
 					taxableincome = (sal)
 				*/	
-					$p=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT period from payrollruns order by id desc limit 1"));
+					$p=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT period from payrollruns order by id desc limit 1"));
 					$period=$p[0];
-					$staff=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM staff WHERE id='$id'"));
+					$staff=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT * FROM staff WHERE id='$id'"));
 					$sname=$staff['staff_name'];
 					$sal=$staff['salary'];
 					$pno=$staff['payrollno'];
-					$rates=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT commission,allowance,balance_bf,lunch,totalbenefits FROM payroll_tbl WHERE staffid='$id' and payrollrun='$period'"));
+					$rates=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT commission,allowance,balance_bf,lunch,totalbenefits FROM payroll_tbl WHERE staffid='$id' and payrollrun='$period'"));
 					$bens=$rates['totalbenefits'];
 					$comm=$rates['commission'];
 					$allowance=$rates['allowance'];
@@ -142,7 +142,7 @@ mysqli_query($GLOBALS['connect'], ("INSERT INTO payroll_tbl(payrollrun,staffid,p
 				$net1=($sal+$bens)-($paye+$tot);
 				$net=round($net1,0);
 				//echo "$sname: $net <br>";
-				mysqli_query($GLOBALS['connect'], (" UPDATE  payroll_tbl SET nhif='$nhif',nssf='$nssf',advance='$advance',totaldeductions='$tot',deduction='$deds',taxableincome='$taxableincome',tax='$paye',netpay='$net',daterun='$date',surrcharge='$surch',helb='$helb' WHERE staffid='$id' and payrollrun='$period' ");
+				mysqli_query($GLOBALS['connect']," UPDATE  payroll_tbl SET nhif='$nhif',nssf='$nssf',advance='$advance',totaldeductions='$tot',deduction='$deds',taxableincome='$taxableincome',tax='$paye',netpay='$net',daterun='$date',surrcharge='$surch',helb='$helb' WHERE staffid='$id' and payrollrun='$period' ");
 				
 				
 			}
@@ -151,7 +151,7 @@ mysqli_query($GLOBALS['connect'], ("INSERT INTO payroll_tbl(payrollrun,staffid,p
 }
 elseif($_GET['action']=="confirmpayroll"){
 	$query="UPDATE payroll_tbl SET status='1' WHERE  payrollrun='$period' and status='0'";
-	mysqli_query($GLOBALS['connect'], ($query);
+	mysqli_query($GLOBALS['connect'],$query);
 	echo "<script>location.replace('confirmedpayroll.php?period=$period')</script>";
 }
 

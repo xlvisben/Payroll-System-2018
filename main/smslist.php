@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM sms ORDER BY id DESC ");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM sms ORDER BY id DESC ");
 
 
 ?>

@@ -22,7 +22,7 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
     if($tables == '*')
     {
         $tables = array();
-        $result = mysqli_query($GLOBALS['connect'], ('SHOW TABLES');
+        $result = mysqli_query($GLOBALS['connect'],'SHOW TABLES');
         while($row = mysql_fetch_row($result))
         {
             $tables[] = $row[0];
@@ -37,10 +37,10 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
 //cycle through
     foreach($tables as $table)
     {
-        $result = mysqli_query($GLOBALS['connect'], ('SELECT * FROM '.$table);
+        $result = mysqli_query($GLOBALS['connect'],'SELECT * FROM '.$table);
         $num_fields = mysql_num_fields($result);
 //$return.= 'DROP TABLE '.$table.';';
-        $row2 = mysql_fetch_row(mysqli_query($GLOBALS['connect'], ('SHOW CREATE TABLE '.$table));
+        $row2 = mysql_fetch_row(mysqli_query($GLOBALS['connect'],'SHOW CREATE TABLE '.$table));
         $return.= "\n".$row2[1].";\n";
 
         while($row = mysql_fetch_row($result))

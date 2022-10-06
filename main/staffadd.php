@@ -15,7 +15,7 @@ if ($_POST) {
 		$pno="PO-BARLETTAH-".$bcode1;
 		$query="INSERT INTO staff(staff_name,national_id,staff_email,staff_telno,status,staff_type,dateadded,nhifno,nssfno,pinno,payrollno)VALUES
 		('$std1','$bcode1','$sch1','$pname1','$pid1','$amnt1','$datea1','$nhifno','$nssfno','$pinno','$pno')";
-		mysqli_query($GLOBALS['connect'], ($query);
+		mysqli_query($GLOBALS['connect'],$query);
 		echo "<script>location.replace('staffdetails.php')</script>";
 }
 ?>

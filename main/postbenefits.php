@@ -2,7 +2,7 @@
 include('header.php');
 $period=$_POST['period'];
 //
-$stafftyperesult=mysqli_query($GLOBALS['connect'], ("SELECT id,type_name from stafftype ");
+$stafftyperesult=mysqli_query($GLOBALS['connect'],"SELECT id,type_name from stafftype ");
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-5">
@@ -52,7 +52,7 @@ $len=count($staff);
 	</thead>
 	<tbody class="details">
 	<?php 
-	$seresult=mysqli_query($GLOBALS['connect'], ("SELECT id,staff_name as s ,payrollno as p,salary as sal FROM staff WHERE staff_type='$sid' ");
+	$seresult=mysqli_query($GLOBALS['connect'],"SELECT id,staff_name as s ,payrollno as p,salary as sal FROM staff WHERE staff_type='$sid' ");
 
 	while($s=mysqli_fetch_array($seresult)){ 
 	

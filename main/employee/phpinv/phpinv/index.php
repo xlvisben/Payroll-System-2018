@@ -7,7 +7,7 @@
 		$location   = $_POST['location'];
 		$date_order = $_POST['date_order'];
 
-		mysqli_query($GLOBALS['connect'], ("INSERT INTO tborder(order_name,location,date_order) values('$order_name','$location','$date_order')");
+		mysqli_query($GLOBALS['connect'],"INSERT INTO tborder(order_name,location,date_order) values('$order_name','$location','$date_order')");
 		$id = mysql_insert_id();
 		if($id > 0)
 		{
@@ -18,7 +18,7 @@
 				$price        = $_POST['price'][$i];
 				$amount       = $_POST['amount'][$i];
 
-				mysqli_query($GLOBALS['connect'], ("INSERT INTO tborderdetail(order_id,product_name,quantity,price,amount) 
+				mysqli_query($GLOBALS['connect'],"INSERT INTO tborderdetail(order_id,product_name,quantity,price,amount) 
 					                values('$id','$product_name','$quantity','$price','$amount')");
 			}
 		}

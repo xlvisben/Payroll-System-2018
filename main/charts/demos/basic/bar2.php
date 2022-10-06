@@ -11,9 +11,9 @@ include("../../lib/inc/chartphp_dist.php");
 
 include("../../../connect.php");
 $votequery="SELECT itemname from vote_item Order by itemname ASC";
-$voterow=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ($votequery));
+$voterow=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$votequery));
 $item=$voterow['itemname'];
-$result=mysqli_query($GLOBALS['connect'], ("SELECT amount as a,vote_item as v FROM votes");
+$result=mysqli_query($GLOBALS['connect'],"SELECT amount as a,vote_item as v FROM votes");
 
 $no=mysqli_num_rows($result);
 

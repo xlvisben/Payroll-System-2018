@@ -5,16 +5,16 @@ if(isset($_SESSION['loggedIn'])){
 if(($_SESSION['loggedIn'])==true){
         $user=$_SESSION['user'];
         $year=date('Y');
-        $query=mysqli_query($GLOBALS['connect'], ("select account_type as usr from users where username='$user'");
+        $query=mysqli_query($GLOBALS['connect'],"select account_type as usr from users where username='$user'");
         $row = mysqli_fetch_assoc($query);
         $main="SELECT * FROM settings";
-        $mainquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ($main));
+        $mainquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$main));
         $yr1=date('Y');
         $loc=$mainquery['main_name'];
-        $abal=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT available_balance as a from cashtransactions where fyr='$yr1' ORDER BY id DESC LIMIT 1"));
-        $bal=$abal['a'];
+        $abal=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT available_balance as a from cashtransactions where fyr='$yr1' ORDER BY id DESC LIMIT 1"));
+        $bal=$abal['a'] ?? 0;
         $yr=date('d-m-Y');
-        $msg=mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) FROM messages WHERE touser='$user' && status='0'");
+        $msg=mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) FROM messages WHERE touser='$user' && status='0'");
         $no=mysqli_num_rows($msg);
 if (file_exists("img/$user.jpg")){
     $image="img/$user.jpg";

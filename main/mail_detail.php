@@ -2,15 +2,15 @@
 include('header.php');
 $usr=$_SESSION['user'];
 $id=$_REQUEST['id'];
-$msg=mysqli_query($GLOBALS['connect'], ("SELECT * FROM messages where id='$id' ");
-mysqli_query($GLOBALS['connect'], ("UPDATE messages SET status='1' WHERE id='$id'");
-$msgCOUNT=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c FROM messages where touser='$usr'"));
-$msgsent=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c FROM messages where uname='$usr'"));
+$msg=mysqli_query($GLOBALS['connect'],"SELECT * FROM messages where id='$id' ");
+mysqli_query($GLOBALS['connect'],"UPDATE messages SET status='1' WHERE id='$id'");
+$msgCOUNT=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM messages where touser='$usr'"));
+$msgsent=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM messages where uname='$usr'"));
 $no= $msgCOUNT['c'];
 $nosent= $msgsent['c'];
 $msgrows=mysqli_fetch_assoc($msg);
 $user=$msgrows['uname'];
-$fquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT fullname FROM users WHERE username='$user'"));
+$fquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT fullname FROM users WHERE username='$user'"));
 $fname=$fquery['fullname'];
 ?>
 

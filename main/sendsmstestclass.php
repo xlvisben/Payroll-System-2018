@@ -16,7 +16,7 @@ $token = 'e8e3d4395fd9e5ac61e42aa8f5c3b63b';
 $client = new Client($sid, $token);
 $id=$_REQUEST['id'];
 //get values to be smsed
-$smsbody=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT body FROM sms WHERE id='$id'"));
+$smsbody=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT body FROM sms WHERE id='$id'"));
 $body=$smsbody['body'];
 // Use the client to do fun stuff like send text messages!
 $client->messages->create(
@@ -32,7 +32,7 @@ $client->messages->create(
 );
 
 
-mysqli_query($GLOBALS['connect'], ("INSERT INTO smslogs(sms,tel)VALUES('$body','$tel')");
+mysqli_query($GLOBALS['connect'],"INSERT INTO smslogs(sms,tel)VALUES('$body','$tel')");
   echo "<script>location.replace('smssend.php')</script>";
 
 ?>

@@ -16,9 +16,9 @@ $token = 'e8e3d4395fd9e5ac61e42aa8f5c3b63b';
 $client = new Client($sid, $token);
 $id=$_POST['sms'];
 //get values to be smsed
-$smsbody=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT body FROM sms WHERE id='id'"));
+$smsbody=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT body FROM sms WHERE id='id'"));
 $body=$smsbody['body'];
-$query=mysqli_query($GLOBALS['connect'], ("SELECT * FROM molarsdb WHERE mobile_no!='' && db='1'");
+$query=mysqli_query($GLOBALS['connect'],"SELECT * FROM molarsdb WHERE mobile_no!='' && db='1'");
 while ($res=mysqli_fetch_array($query)) { 
   //SEND SMS
 $t=$res["mobile_phone"];
@@ -39,7 +39,7 @@ $client->messages->create(
     )
 
 );
-mysqli_query($GLOBALS['connect'], ("INSERT INTO smslogs(sms,tel)VALUES('$body','$tel')");
+mysqli_query($GLOBALS['connect'],"INSERT INTO smslogs(sms,tel)VALUES('$body','$tel')");
 
  
  echo "<script>location.replace('smslogs.php')</script>";

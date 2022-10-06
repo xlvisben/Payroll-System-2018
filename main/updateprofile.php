@@ -3,7 +3,7 @@
 require_once('header.php');
 //$id=$_REQUEST['id'];
 $user=$_SESSION['user'];
-$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM users where username='$user'"));
+$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT * FROM users where username='$user'"));
 //update Details
 
 

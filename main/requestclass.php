@@ -20,7 +20,7 @@ $client = new Client($sid, $token);
 	//GENERATE CODE FOR EDIT REQUESTS
 	$code=rand(1000,9999);
 	$date=date('Y-m-d');
-	mysqli_query($GLOBALS['connect'], ("INSERT INTO requests(code,expiry)VALUES('$code','$date')");
+	mysqli_query($GLOBALS['connect'],"INSERT INTO requests(code,expiry)VALUES('$code','$date')");
 	// Use the client to do fun stuff like send text messages!
 $client->messages->create(
     // the number you'd like to send the message to

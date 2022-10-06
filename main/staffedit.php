@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $id=$_REQUEST['id'];
-$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM staff where id='$id'"));
+$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT * FROM staff where id='$id'"));
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">

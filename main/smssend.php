@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $id=$_REQUEST['id'];
-$msg=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT body FROM sms WHERE id='$id'"));
+$msg=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT body FROM sms WHERE id='$id'"));
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">

@@ -93,7 +93,7 @@ $user=$_SESSION['user'];
                     <?php
                     $user=$_SESSION['user'];
                     $query="SELECT * FROM staff where payrollno='$user'";
-                    $row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ($query));
+                    $row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$query));
                     ?>
                     <div class="ibox-content">
                         <div class="row">
@@ -104,7 +104,7 @@ $user=$_SESSION['user'];
 
                             <div class="col-xs-6">
                                 <small class="stats-label">Full Name</small>
-                                <h4><?php echo $row['staff_name']?></h4>
+                                <h4><?php echo $row['staff_name'] ?? ''?></h4>
                             </div>
                         </div>
                     </div>
@@ -112,15 +112,15 @@ $user=$_SESSION['user'];
                         <div class="row">
                             <div class="col-xs-6">
                                 <small class="stats-label">Email</small>
-                                <h4><?php echo $row['staff_email']?></h4>
+                                <h4><?php echo $row['staff_email'] ?? ''?></h4>
                             </div>
 
                             <div class="col-xs-6">
                                 <small class="stats-label">My Department</small>
                                 <?php
-                                $sid=$row['staff_type'];
-                                $dep=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT type_name as t from stafftype where id='$sid' "));
-                                $d=$dep['t'];
+                                $sid=$row['staff_type'] ?? '';
+                                $dep=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT type_name as t from stafftype where id='$sid' "));
+                                $d=$dep['t'] ?? '';
                                 ?>
                                 <h4><?php echo $d ?></h4>
                             </div>

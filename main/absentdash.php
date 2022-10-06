@@ -138,10 +138,10 @@ $c=$count['c'];
                     </div>
                     <div class="ibox-content">
                 <br >
-                <a href="selectperiod.php" class="btn btn-primary">Remmitance Reports</a>
-                <a href="selectperiod.php" class="btn btn-info ">NSSF Reports</a>
-                <a href="selectperiod.php" class="btn btn-success ">NHIF Hours</a>
-                <a href="selectperiod.php" class="btn btn-danger ">PAYE Reports</a>
+                <a href="employee/selectperiod.php" class="btn btn-primary">Remmitance Reports</a>
+                <a href="employee/selectperiod.php" class="btn btn-info ">NSSF Reports</a>
+                <a href="employee/selectperiod.php" class="btn btn-success ">NHIF Hours</a>
+                <a href="employee/selectperiod.php" class="btn btn-danger ">PAYE Reports</a>
                 <a href="payslip.php?payrollno=<?php echo $user?>" class="btn btn-warning ">Payslip</a>
                     
           </div>

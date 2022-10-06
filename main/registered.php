@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $ward=$_POST['wname'];
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM student WHERE ward='$ward'  ORDER BY id DESC");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM student WHERE ward='$ward'  ORDER BY id DESC");
 
 
 ?>

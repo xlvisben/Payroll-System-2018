@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $period=date('Y')."-".date('m');
-$result=mysqli_query($GLOBALS['connect'], ("SELECT DISTINCT * FROM payroll WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
+$result=mysqli_query($GLOBALS['connect'],"SELECT DISTINCT * FROM payroll WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
 
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
@@ -223,7 +223,7 @@ $result=mysqli_query($GLOBALS['connect'], ("SELECT DISTINCT * FROM payroll WHERE
                              
                                     <div class="form-group"><label>Payroll Period</label> 
                                     <?php
-                                    $r=mysqli_query($GLOBALS['connect'], ("SELECT period from payrollruns order by id desc limit 5 ");
+                                    $r=mysqli_query($GLOBALS['connect'],"SELECT period from payrollruns order by id desc limit 5 ");
 
                                     echo "<select name='period' class='form-control'>";
                                     while($ss=mysqli_fetch_array($r)){

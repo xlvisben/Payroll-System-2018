@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $wageid=$_REQUEST['wageid'];
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM wages where wageid='$wageid'");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM wages where wageid='$wageid'");
 $sdate=$_REQUEST['sdate'];
 $edate=$_REQUEST['edate'];
 

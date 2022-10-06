@@ -23,7 +23,7 @@ if ($hrdiff>1.4) {
 	$tot=$newhr*$rate;
 }
 
-mysqli_query($GLOBALS['connect'], ("INSERT empvsovertime(empid,datefrom,dateto,timefrom,timeto,period,hrs,rate,totalamount)VALUES('$empid','$datefrom','$dateto','$timefrom','$timeto','$period','$hrdiff','$rate','$tot') ");
+mysqli_query($GLOBALS['connect'],"INSERT empvsovertime(empid,datefrom,dateto,timefrom,timeto,period,hrs,rate,totalamount)VALUES('$empid','$datefrom','$dateto','$timefrom','$timeto','$period','$hrdiff','$rate','$tot') ");
 echo "<script>location.replace('overtime.php?period=all')</script>";
 }
 ?>

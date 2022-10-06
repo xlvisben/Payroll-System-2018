@@ -7,19 +7,19 @@ require('payslip_pdf.php');
 define('FPDF_FONTPATH','fonts/');
 $period=$_REQUEST['period'];
 $payrollid=$_REQUEST['payrollid'];
-$main=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT main_name as name ,main_location as location,main_tel as tel ,main_address as address, email from settings"));
+$main=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT main_name as name ,main_location as location,main_tel as tel ,main_address as address, email from settings"));
 $companyname=$main['name'];
 $companyloc=$main['location'];
 $companyaddress=$main['address'];
 $companytel=$main['tel'];
 $companyemail=$main['email'];
 //QUERY ALL DETAILS
-$datesquery=mysqli_query($GLOBALS['connect'], ("SELECT pt.staffid as id, pt.payrollno as payrollno ,pt.sname as name ,pt.salary as basic ,pt.lunch as lunch,pt.commission as commission ,(pt.salary+pt.overtime+pt.commission+pt.allowance+pt.lunch) as gross,pt.nhif as nhif ,pt.nssf as nssf,pt.advance as advance,pt.tax as paye,pt.taxableincome as taxableincome,pt.totaldeductions as totaldeductions,pt.daterun as payrolldate,pt.overtime as overtime ,pt.allowance as allowance,pt.netpay as net,pt.surrcharge as surrcharge ,pt.helb as helb ,pt.deduction as absent FROM payroll_tbl pt  WHERE pt.payrollrun='$period' and pt.id='$payrollid'");
+$datesquery=mysqli_query($GLOBALS['connect'],"SELECT pt.staffid as id, pt.payrollno as payrollno ,pt.sname as name ,pt.salary as basic ,pt.lunch as lunch,pt.commission as commission ,(pt.salary+pt.overtime+pt.commission+pt.allowance+pt.lunch) as gross,pt.nhif as nhif ,pt.nssf as nssf,pt.advance as advance,pt.tax as paye,pt.taxableincome as taxableincome,pt.totaldeductions as totaldeductions,pt.daterun as payrolldate,pt.overtime as overtime ,pt.allowance as allowance,pt.netpay as net,pt.surrcharge as surrcharge ,pt.helb as helb ,pt.deduction as absent FROM payroll_tbl pt  WHERE pt.payrollrun='$period' and pt.id='$payrollid'");
 while ( $row=mysqli_fetch_array($datesquery)) {
   $id=$row['id'];
-  $s=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT st.type_name as stype, s.national_id as natid ,s.accountno as bankacc ,s.bankcode as bcode FROM staff s  inner join stafftype st on st.id=s.staff_type  where s.id='$id'"));
+  $s=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT st.type_name as stype, s.national_id as natid ,s.accountno as bankacc ,s.bankcode as bcode FROM staff s  inner join stafftype st on st.id=s.staff_type  where s.id='$id'"));
     $bcode=$s['bcode'];
-    $b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT b.bank as bank ,bb.bname as branch FROM staff s inner join bankbranch bb on bb.code=s.branchcode inner join banks b on b.bcode=s.bankcode inner join banks b1 on b.bcode=bb.bankCode where s.id='$id' "));
+    $b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT b.bank as bank ,bb.bname as branch FROM staff s inner join bankbranch bb on bb.code=s.branchcode inner join banks b on b.bcode=s.bankcode inner join banks b1 on b.bcode=bb.bankCode where s.id='$id' "));
     $bank=$b['bank'];
     $stype=$s['stype'];
     $natid=$s['natid'];

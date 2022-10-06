@@ -2,7 +2,7 @@
 include('header.php');
 $sdate=$_POST['sdate'];
 $edate=$_POST['edate'];
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM wages where startdate='$sdate' and enddate='$edate'");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM wages where startdate='$sdate' and enddate='$edate'");
 
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">

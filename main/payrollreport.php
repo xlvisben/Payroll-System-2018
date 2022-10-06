@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $period=date('Y')."/".date('m');
-$result=mysqli_query($GLOBALS['connect'], ("SELECT DISTINCT * FROM payroll WHERE status='0' and payrollrun='$period' ORDER BY id ASC ");
+$result=mysqli_query($GLOBALS['connect'],"SELECT DISTINCT * FROM payroll WHERE status='0' and payrollrun='$period' ORDER BY id ASC ");
 
 ?>
     <link href="dataTables/dataTables.bootstrap.css" rel="stylesheet" >

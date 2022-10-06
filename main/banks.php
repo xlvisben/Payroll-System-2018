@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM bankdetails ORDER BY bankname ASC");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM bankdetails ORDER BY bankname ASC");
 
 ?>
     <link href="dataTables/dataTables.bootstrap.css" rel="stylesheet" >

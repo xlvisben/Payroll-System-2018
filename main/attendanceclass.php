@@ -7,15 +7,15 @@ $dateto=$_POST['dateto'];
 $timefrom=$_POST['timefrom'];
 $timeto=$_POST['timeto'];
 $period=date('Y-m');
-mysqli_query($GLOBALS['connect'], ("INSERT empvsovertime(empid,datefrom,dateto,timefrom,timeto,period)VALUES('$empid','$datefrom','$dateto','$timefrom','$timeto','$period') ");
+mysqli_query($GLOBALS['connect'],"INSERT empvsovertime(empid,datefrom,dateto,timefrom,timeto,period)VALUES('$empid','$datefrom','$dateto','$timefrom','$timeto','$period') ");
 echo "<script>location.replace('overtime.php?period=all')</script>";
 }elseif ($_GET['action']=="approveovertime") {
 $id=$_REQUEST['id'];
-mysqli_query($GLOBALS['connect'], ("UPDATE empvsovertime SET status='1' WHERE id='$id'");
+mysqli_query($GLOBALS['connect'],"UPDATE empvsovertime SET status='1' WHERE id='$id'");
 echo "<script>location.replace('approvedovertime.php?period=all')</script>";
 }elseif ($_GET['action']=="voidovertime") {
 $id=$_REQUEST['id'];
-mysqli_query($GLOBALS['connect'], ("UPDATE empvsovertime SET status='2' WHERE id='$id'");
+mysqli_query($GLOBALS['connect'],"UPDATE empvsovertime SET status='2' WHERE id='$id'");
 echo "<script>location.replace('rejectedovertime.php?period=all')</script>";
 }elseif ($_GET['action']=="addleave") {
 $sid=$_POST['sid'];

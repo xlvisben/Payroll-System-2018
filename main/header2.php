@@ -7,7 +7,7 @@ if(($_SESSION['loggedIn'])==true)
 {
 $user=$_SESSION['user'];
 $year=date('Y');
-  $query=mysqli_query($GLOBALS['connect'], ("select account_type as usr from users where username='$user'");
+  $query=mysqli_query($GLOBALS['connect'],"select account_type as usr from users where username='$user'");
       $row = mysqli_fetch_assoc($query);
     if ($row['usr']=='0') {
 echo <<<HeaderFunction

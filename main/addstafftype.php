@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM stafftype ORDER BY id ASC");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM stafftype ORDER BY id ASC");
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
@@ -164,7 +164,7 @@ $result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM stafftype ORDER BY id 
                     <td><?php echo $row["type_name"] ?></td>
                     <?php
                     $d=$row['deptid'];
-                    $dd=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT name from dept where id='$d'"));
+                    $dd=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT name from dept where id='$d'"));
                     ?>
                     <td><?php echo $dd['name']?></td>
                     <td><a class="btn btn-success btn-xs" href="stafftypeedit.php?id=<?php echo $row['id'] ?>">Edit</a></td>

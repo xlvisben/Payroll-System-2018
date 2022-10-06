@@ -61,7 +61,7 @@ $period=$_REQUEST['period'];
 
     <tbody>
     <?php 
-    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl  where payrollrun='$period' and status='1' ");
+    $seresult=mysqli_query($GLOBALS['connect'],"SELECT * FROM payroll_tbl  where payrollrun='$period' and status='1' ");
 
     while($s=mysqli_fetch_array($seresult)){ ?>
     <tr>
@@ -69,7 +69,7 @@ $period=$_REQUEST['period'];
         <td><?php echo $s['sname']?> </td>
         <?php
         $id=$s['staffid'];
-        $bank=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT bb.bname as branch ,b.bank as bank ,s.accountno as accountno , s.accountname as accountname from staff s inner join banks b on b.bcode=s.bankcode inner join bankbranch bb on bb.code=s.branchcode inner join banks b1 on b.bcode=bb.bankcode where s.id='$id'"));
+        $bank=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT bb.bname as branch ,b.bank as bank ,s.accountno as accountno , s.accountname as accountname from staff s inner join banks b on b.bcode=s.bankcode inner join bankbranch bb on bb.code=s.branchcode inner join banks b1 on b.bcode=bb.bankcode where s.id='$id'"));
         ?>
         <td><?php echo $bank['bank']?> </td>
         <td><?php echo $bank['branch']?> </td>
@@ -100,7 +100,7 @@ $period=$_REQUEST['period'];
         <td></td>
         <td><strong>Total</strong></td>
         <?php
-        $rs=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(netpay) as saltot , sum(salary+overtime) as gross FROM payroll_tbl where payrollrun='$period' and status='1'"));
+        $rs=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT SUM(netpay) as saltot , sum(salary+overtime) as gross FROM payroll_tbl where payrollrun='$period' and status='1'"));
         ?>
         <td><strong><font color="blue"><?php echo $rs['gross']?></font> </strong></td>        
         <td><strong><font color="red"><?php echo $rs['saltot']?></font> </strong></td>

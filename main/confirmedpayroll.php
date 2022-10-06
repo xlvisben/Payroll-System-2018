@@ -64,7 +64,7 @@ $period=$_REQUEST['period'];
     </thead>
     <tbody>
     <?php 
-    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl ");
+    $seresult=mysqli_query($GLOBALS['connect'],"SELECT * FROM payroll_tbl ");
 
     while($s=mysqli_fetch_array($seresult)){ ?>
     <tr>
