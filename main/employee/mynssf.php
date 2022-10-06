@@ -3,9 +3,9 @@ include('header.php');
 $user=$_SESSION['user'];
 $period=$_REQUEST['period'];
 if ($period=="all") {
-  $result=mysql_query("SELECT  * FROM payroll_tbl WHERE status='1' and payrollno='$user' ORDER BY id DESC ");
+  $result=mysqli_query($GLOBALS['connect'], ("SELECT  * FROM payroll_tbl WHERE status='1' and payrollno='$user' ORDER BY id DESC ");
 }elseif ($period!="all") {
-$result=mysql_query("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun='$period' and payrollno='$user' ORDER BY id DESC ");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun='$period' and payrollno='$user' ORDER BY id DESC ");
 }
 
 ?>
@@ -65,13 +65,13 @@ $result=mysql_query("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun=
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                   <td><?php echo $row["payrollno"]?></td> 
                     <td><?php echo $row["sname"]?></td>
                     <?php 
                     $id=$row["staffid"];
-                     $n1=mysql_fetch_array(mysql_query("SELECT nssfno FROM staff WHERE id='$id'"));
+                     $n1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT nssfno FROM staff WHERE id='$id'"));
                      $n=$n1['nssfno'];
                         ?>
                     <td><?php echo $n ?></td>

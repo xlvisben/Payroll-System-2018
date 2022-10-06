@@ -3,7 +3,7 @@
 include('header.php');
 if ($_GET['action'] == "addcategory") {
     $name = sanitizeString($_POST['name']);
-    mysql_query("INSERT INTO category(name)VALUES('$name')");
+    mysqli_query($GLOBALS['connect'], ("INSERT INTO category(name)VALUES('$name')");
     echo "<script>location.replace('productcategory.php')</script>";
 }
 
@@ -18,7 +18,7 @@ if ($_GET['action'] == "editcategory") {
 
         $sql = "UPDATE category SET name='$v' WHERE id='$id';";
 
-        if (mysql_query($sql)) {
+        if (mysqli_query($GLOBALS['connect'], ($sql)) {
             echo "Record updated successfully";
             echo "<script>location.replace('categories.php')</script>";
         } else {
@@ -31,7 +31,7 @@ if ($_GET['action'] == "editcategory") {
 //DELETE Category
 if ($_GET['action'] == "deletecategory") {
     $id = $_REQUEST['id'];
-    mysql_query("DELETE FROM category WHERE id='$id'");
+    mysqli_query($GLOBALS['connect'], ("DELETE FROM category WHERE id='$id'");
     echo "<script>location.replace('categories.php')</script>";
 
 }
@@ -41,14 +41,14 @@ if ($_GET['action'] == "editproduct") {
     $category = $_POST['cat'];
     $id = $_REQUEST['id'];
     $cost = $_REQUEST['cost'];
-    mysql_query("UPDATE products SET name='$name',cost='$cost',category='$category' WHERE id='$id'");
+    mysqli_query($GLOBALS['connect'], ("UPDATE products SET name='$name',cost='$cost',category='$category' WHERE id='$id'");
     echo "<script>location.replace('products.php')</script>";
 
 }
 //DELETE PRODUCT
 if ($_GET['action'] == "deleteproduct") {
     $id = $_REQUEST['id'];
-    mysql_query("DELETE FROM products WHERE id='$id'");
+    mysqli_query($GLOBALS['connect'], ("DELETE FROM products WHERE id='$id'");
     echo "<script>location.replace('products.php')</script>";
 }
 //STOCK OPERATIONS
@@ -108,17 +108,17 @@ if ($_GET['action'] == "warehousein") {
 
     //check main stock table using loop
     //if 0 insert if exists update
-    $result=mysql_fetch_assoc(mysql_query("SELECT COUNT(id) as tot from stock WHERE productid='$productid' && location='$warehouse'"));
+    $result=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as tot from stock WHERE productid='$productid' && location='$warehouse'"));
     $no=$result['tot'];
     //INSERT INTO STOCK
     if ($no==0) {
-        mysql_query("INSERT INTO stock (product,productid,quantity,costprice,stockvalue,location)VALUES('$product','$productid','$stockin','$costprice','$stockvalue','$warehouse')");
+        mysqli_query($GLOBALS['connect'], ("INSERT INTO stock (product,productid,quantity,costprice,stockvalue,location)VALUES('$product','$productid','$stockin','$costprice','$stockvalue','$warehouse')");
     } elseif ($no>0) {
-        mysql_query("UPDATE stock SET quantity='$newstock' WHERE productid='$productid')");
+        mysqli_query($GLOBALS['connect'], ("UPDATE stock SET quantity='$newstock' WHERE productid='$productid')");
 
     }
     //INSERT 
-    mysql_query("INSERT INTO stockmoves(product,productid,currentstock,stockin,costprice,stockvalue,warehouse,recordedby,dateadded,logs,updatedstock)VALUES('$product','$productid','$currentstock','$stockin','$costprice','$stockvalue','$warehouse','$recordedby','$dateadded','$logs','$newstock') ");
+    mysqli_query($GLOBALS['connect'], ("INSERT INTO stockmoves(product,productid,currentstock,stockin,costprice,stockvalue,warehouse,recordedby,dateadded,logs,updatedstock)VALUES('$product','$productid','$currentstock','$stockin','$costprice','$stockvalue','$warehouse','$recordedby','$dateadded','$logs','$newstock') ");
     //SEND SMS
 echo"<script>location.replace('checkinstock.php')</script>";
 
@@ -147,17 +147,17 @@ if ($_GET['action'] == "warehouseout") {
     //check main stock table using loop
     //if 0 insert if exists update
     /*
-    $result=mysql_fetch_assoc(mysql_query("SELECT COUNT(id) as tot from stock WHERE productid='$productid' && location='$warehouse'"));
+    $result=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as tot from stock WHERE productid='$productid' && location='$warehouse'"));
     $no=$result['tot'];
     //INSERT INTO STOCK
     if ($no==0) {
-        mysql_query("INSERT INTO stock (product,productid,quantity,costprice,stockvalue,location)VALUES('$product','$productid','$stockin','$costprice','$stockvalue','$warehouse')");
+        mysqli_query($GLOBALS['connect'], ("INSERT INTO stock (product,productid,quantity,costprice,stockvalue,location)VALUES('$product','$productid','$stockin','$costprice','$stockvalue','$warehouse')");
     } elseif ($no>0) {
-        mysql_query("UPDATE stock SET quantity='$newstock' WHERE productid='$productid')");
+        mysqli_query($GLOBALS['connect'], ("UPDATE stock SET quantity='$newstock' WHERE productid='$productid')");
 
     }*/
     //INSERT RECORD
-    mysql_query("INSERT INTO stockmoves(product,productid,currentstock,stockout,warehouse,recordedby,dateadded,logs,updatedstock)VALUES('$product','$productid','$currentstock','$stockout','$warehouse','$recordedby','$dateadded','$logs','$newstock') ");
+    mysqli_query($GLOBALS['connect'], ("INSERT INTO stockmoves(product,productid,currentstock,stockout,warehouse,recordedby,dateadded,logs,updatedstock)VALUES('$product','$productid','$currentstock','$stockout','$warehouse','$recordedby','$dateadded','$logs','$newstock') ");
     //SEND SMS
 echo"<script>location.replace('checkoutstock.php')</script>";
   

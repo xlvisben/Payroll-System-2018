@@ -83,7 +83,7 @@ include('header.php');
                                          <?php
                                      $statusQuery="select id,type_name from stafftype";
                                         $statusResult=queryMysql($statusQuery);
-                                        $no = mysql_num_rows($statusResult);
+                                        $no = mysqli_num_rows($statusResult);
                                       echo "<select name='stype' type='text' class='form-control' >";
                                     for ($i = 0 ; $i < $no ; ++$i)
                                       {

@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysql_query("SELECT * FROM staff ORDER BY id ASC");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM staff ORDER BY id ASC");
 
 ?>
     <link href="dataTables/dataTables.bootstrap.css" rel="stylesheet" >
@@ -55,14 +55,14 @@ $result=mysql_query("SELECT * FROM staff ORDER BY id ASC");
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                   <td><?php echo $row["staff_name"]?></td> 
                     <td><?php echo $row["national_id"]?></td>
                     <td><?php echo $row["staff_email"] ?></td>
                     <?php
                     $id=$row["staff_type"];
-                    $type=mysql_fetch_array(mysql_query("SELECT type_name FROM stafftype WHERE id='$id'"));
+                    $type=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT type_name FROM stafftype WHERE id='$id'"));
                     $t=$type['type_name'];
                     ?>
                     <td><?php echo $t ?></td>

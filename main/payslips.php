@@ -2,12 +2,12 @@
 ini_set('dsipaly_errors', 1);
 include('connect.php');
 $period=$_POST['period'];
-$result=mysql_query("SELECT * FROM payroll_tbl WHERE payrollrun='$period'");
-while($row=mysql_fetch_array($result)){
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl WHERE payrollrun='$period'");
+while($row=mysqli_fetch_array($result)){
     $id=$row['staffid'];
-    $s=mysql_fetch_array(mysql_query("SELECT st.type_name as stype, s.national_id as natid ,s.accountno as bankacc ,s.bankcode as bcode FROM staff s  inner join stafftype st on st.id=s.staff_type  where s.id='$id'"));
+    $s=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT st.type_name as stype, s.national_id as natid ,s.accountno as bankacc ,s.bankcode as bcode FROM staff s  inner join stafftype st on st.id=s.staff_type  where s.id='$id'"));
     $bcode=$s['bcode'];
-    $b=mysql_fetch_array(mysql_query("SELECT bank as bb FROM banks where bcode like'%$bcode%'"));
+    $b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT bank as bb FROM banks where bcode like'%$bcode%'"));
 ?>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">

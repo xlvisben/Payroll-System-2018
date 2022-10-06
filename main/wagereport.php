@@ -2,7 +2,7 @@
 include('header.php');
 $sdate=$_POST['sdate'];
 $edate=$_POST['edate'];
-$result=mysql_query("SELECT * FROM wages where startdate='$sdate' and enddate='$edate'");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM wages where startdate='$sdate' and enddate='$edate'");
 
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -67,7 +67,7 @@ $result=mysql_query("SELECT * FROM wages where startdate='$sdate' and enddate='$
     <tbody>
     <?php 
 
-    while($s=mysql_fetch_array($result)){ ?>
+    while($s=mysqli_fetch_array($result)){ ?>
     <tr>
         <td><?php echo $s['name']?> </td>
         <td><?php echo $s['id']?> </td>     

@@ -54,7 +54,7 @@ include('header.php');
                 <?php
                 $statusQuery="select payrollno,staff_name from staff ";
                 $statusResult=queryMysql($statusQuery);
-                 $no = mysql_num_rows($statusResult);
+                 $no = mysqli_num_rows($statusResult);
                 echo "<select data-placeholder='Choose Staff...' class='chosen-select' name='sid' style='width:350px;' tabindex='2'>";
                   for ($i = 0 ; $i < $no ; ++$i)
                   {
@@ -70,7 +70,7 @@ include('header.php');
                   <?php
                 $statusQuery="select id,name from leaves ";
                 $statusResult=queryMysql($statusQuery);
-                 $no = mysql_num_rows($statusResult);
+                 $no = mysqli_num_rows($statusResult);
                 echo "<select data-placeholder='Choose Leave...' class='chosen-select' name='leave' style='width:350px;' tabindex='2'>";
                   for ($i = 0 ; $i < $no ; ++$i)
                   {

@@ -54,7 +54,7 @@ include('header.php');
                                                       <?php
                                      $statusQuery="select id,bank from banks order by bank asc";
                                         $statusResult=queryMysql($statusQuery);
-                                        $no = mysql_num_rows($statusResult);
+                                        $no = mysqli_num_rows($statusResult);
                                       echo "<select name='bank' type='text' class='form-control' >";
                                     for ($i = 0 ; $i < $no ; ++$i)
                                       {

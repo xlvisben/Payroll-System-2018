@@ -5,8 +5,8 @@ if(($_SESSION['loggedIn'])==true)
 {
 $user=$_SESSION['user'];
 $year=date('Y');
-  $query=mysql_query("select account_type as usr from users where username='$user'");
-      $row = mysql_fetch_assoc($query);
+  $query=mysqli_query($GLOBALS['connect'], "select account_type as usr from users where username='$user'");
+      $row = mysqli_fetch_assoc($query);
     if ($row['usr']=='0') {
     echo "<script>location.replace('dash.php')</script>";
     }elseif ($row['user']!='0') {

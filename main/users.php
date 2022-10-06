@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysql_query("SELECT * FROM users where username!='smbugua'  ORDER BY id DESC ");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM users where username!='smbugua'  ORDER BY id DESC ");
 
 
 ?>
@@ -55,7 +55,7 @@ $result=mysql_query("SELECT * FROM users where username!='smbugua'  ORDER BY id 
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                     <td><?php echo $row["fullname"]?></td>
                     <td><?php echo $row["username"]?></td>

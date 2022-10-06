@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysql_query("SELECT * FROM bankdetails ORDER BY bankname ASC");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM bankdetails ORDER BY bankname ASC");
 
 ?>
     <link href="dataTables/dataTables.bootstrap.css" rel="stylesheet" >
@@ -51,7 +51,7 @@ $result=mysql_query("SELECT * FROM bankdetails ORDER BY bankname ASC");
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                     <td><?php echo $row["bankname"]?></td>
                     <td><?php echo $row["bankbranch"]?></td>

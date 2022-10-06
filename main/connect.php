@@ -1,11 +1,11 @@
 <?php // rnfunctions.php
 error_reporting(E_ALL ^ E_DEPRECATED);
 $dbhost = 'localhost'; // Unlikely to require changing
-$dbname = 'barlettah'; // Modify these...
+$dbname = 'payroll_test_one'; // Modify these...
 $dbuser = 'root'; // ...variables according
 $dbpass = ''; // ...to your installation
-mysql_connect($dbhost, $dbuser, $dbpass) or die(mysql_error());
-mysql_select_db($dbname) or die(mysql_error());
+$connect = mysqli_connect($dbhost, $dbuser, $dbpass) or die(mysqli_error($connect));
+mysqli_select_db($connect, $dbname) or die(mysqli_error($connect));
 function sessionStart()
 {
 session_start();
@@ -25,11 +25,11 @@ echo "Table '$name' created<br />";
 function tableExists($name)
 {
 $result = queryMysql("SHOW TABLES LIKE '$name'");
-return mysql_num_rows($result);
+return mysqli_num_rows($result);
 }
 function queryMysql($query)
 {
-$result = mysql_query($query) or die(mysql_error());
+$result = mysqli_query($GLOBALS['connect'], $query) or die(mysqli_error($GLOBALS['connect']));
 return $result;
 }
 function destroySession()
@@ -44,7 +44,7 @@ function sanitizeString($var)
 $var = strip_tags($var);
 $var = htmlentities($var);
 $var = stripslashes($var);
-return mysql_real_escape_string($var);
+return mysqli_real_escape_string($GLOBALS['connect'], $var);
 }
 
 
@@ -61,7 +61,7 @@ function longdate($timestamp)
 return date("l F jS Y", $timestamp);
 }
 function getTaxableIncome($staffid,$nssf,$period){
-	$r=mysql_fetch_array(mysql_query("SELECT salary,totalbenefits FROM payroll_tbl where staffid='$staffid' and payrollrun='$period'"));
+	$r=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], "SELECT salary,totalbenefits FROM payroll_tbl where staffid='$staffid' and payrollrun='$period'"));
 	$bens=$r['totalbenefits'];
 	$salary=$r['salary'];
 	$taxableincome=($bens+$salary)-$nssf;

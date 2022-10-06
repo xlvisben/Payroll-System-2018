@@ -2,8 +2,8 @@
 include('header.php');
 
 $usr=$_SESSION['user'];
-$msgCOUNT=mysql_fetch_assoc(mysql_query("SELECT COUNT(id) as c FROM messages where touser='$usr'"));
-$msgsent=mysql_fetch_assoc(mysql_query("SELECT COUNT(id) as c FROM messages where uname='$usr'"));
+$msgCOUNT=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM messages where touser='$usr'"));
+$msgsent=mysqli_fetch_assoc(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM messages where uname='$usr'"));
 $no= $msgCOUNT['c'];
 $nosent= $msgsent['c'];
 ?>
@@ -51,7 +51,7 @@ $nosent= $msgsent['c'];
                             <div class="col-sm-10"><?php
                                      $statusQuery="select username from users";
                                         $statusResult=queryMysql($statusQuery);
-                                        $no = mysql_num_rows($statusResult);
+                                        $no = mysqli_num_rows($statusResult);
                                       echo "<select name='touser' type='text' class='form-control' >";
                                     for ($i = 0 ; $i < $no ; ++$i)
                                       {

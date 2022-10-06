@@ -55,9 +55,9 @@ $period=$_REQUEST['period'];
 	</thead>
 	<tbody>
 	<?php 
-	$seresult=mysql_query("SELECT * FROM payroll_tbl where payrollrun='$period' ");
+	$seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl where payrollrun='$period' ");
 
-	while($s=mysql_fetch_array($seresult)){ ?>
+	while($s=mysqli_fetch_array($seresult)){ ?>
 	<tr>
 		<td><?php echo $s['payrollno']?> </td>
 		<td><?php echo $s['sname']?> </td>

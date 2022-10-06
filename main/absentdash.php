@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $user=$_SESSION['user'];
-$count=mysql_fetch_array(mysql_query("SELECT COUNT(id) as c FROM empvsovertime where status='0'"));
+$count=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], "SELECT COUNT(id) as c FROM empvsovertime where status='0'"));
 $c=$count['c'];
 ?>
 
@@ -94,7 +94,7 @@ $c=$count['c'];
                     <?php
                     $user=$_SESSION['user'];
                     $query="SELECT * FROM users where username='$user'";
-                    $row=mysql_fetch_array(mysql_query($query));
+                    $row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$query));
                     ?>
                     <div class="ibox-content">
                         <div class="row">

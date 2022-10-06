@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $ward=$_POST['wname'];
-$result=mysql_query("SELECT * FROM student WHERE ward='$ward'  ORDER BY id DESC");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM student WHERE ward='$ward'  ORDER BY id DESC");
 
 
 ?>
@@ -57,7 +57,7 @@ $result=mysql_query("SELECT * FROM student WHERE ward='$ward'  ORDER BY id DESC"
             </thead> 
 
             <tbody> 
-             <?php while ($row = mysql_fetch_array($result)) { ?>             
+             <?php while ($row = mysqli_fetch_array($result)) { ?>             
                 <tr > 
                     <td>  <a href="studentmore.php"><?php echo $row['studentname']?> </a></td>
                     <td><?php echo $row['institution'] ?></td>

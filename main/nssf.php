@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $period=$_REQUEST['period'];
-$result=mysql_query("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
 
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
@@ -60,13 +60,13 @@ $result=mysql_query("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun=
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                   <td><?php echo $row["payrollno"]?></td> 
                     <td><?php echo $row["sname"]?></td>
                     <?php 
                     $id=$row["staffid"];
-                     $n1=mysql_fetch_array(mysql_query("SELECT nssfno FROM staff WHERE id='$id'"));
+                     $n1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT nssfno FROM staff WHERE id='$id'"));
                      $n=$n1['nssfno'];
                         ?>
                     <td><?php echo $n ?></td>
@@ -81,7 +81,7 @@ $result=mysql_query("SELECT  * FROM payroll_tbl WHERE status='1' and payrollrun=
         <td></td>
         <td><strong>Total</strong></td>
         <?php
-        $rs=mysql_fetch_array(mysql_query("SELECT SUM(nssf) as saltot FROM payroll_tbl where payrollrun='$period' and status='1' "));
+        $rs=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(nssf) as saltot FROM payroll_tbl where payrollrun='$period' and status='1' "));
         ?>
         <td><strong><font color="red"><?php echo $rs['saltot']?></font> </strong></td>
     </tfoot>

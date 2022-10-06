@@ -10,7 +10,7 @@ if ($_GET['action']=="adduser") {
     $utype=sanitizeString($_POST['utype']);
 
     $query="INSERT INTO users (username,fullname,email,password,account_type)VALUES('$username','$fname','$email','$password','$utype');";
-    mysql_query($query);
+    mysqli_query($GLOBALS['connect'], ($query);
     if (mysql_error()) {
         # code...
         echo "<script>alert('Error adding account')</script>";
@@ -23,7 +23,7 @@ if ($_GET['action']=="adduser") {
 //DELETE Users
 if ($_GET['action']=="deleteuser") {
     $id=$_REQUEST['id'];
-    mysql_query("DELETE FROM users WHERE id='$id'");
+    mysqli_query($GLOBALS['connect'], ("DELETE FROM users WHERE id='$id'");
     echo "<script>location.replace('users.php')</script>";
 }
 

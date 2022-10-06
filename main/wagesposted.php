@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $wageid=$_REQUEST['wageid'];
-$result=mysql_query("SELECT * FROM wages where wageid='$wageid'");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM wages where wageid='$wageid'");
 $sdate=$_REQUEST['sdate'];
 $edate=$_REQUEST['edate'];
 
@@ -68,7 +68,7 @@ $edate=$_REQUEST['edate'];
     <tbody>
     <?php 
 
-    while($s=mysql_fetch_array($result)){ ?>
+    while($s=mysqli_fetch_array($result)){ ?>
     <tr>
         <td><?php echo $s['name']?> </td>
         <td><?php echo $s['id']?> </td>     

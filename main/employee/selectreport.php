@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $period=date('Y')."/".date('m');
-$result=mysql_query("SELECT DISTINCT * FROM payroll WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT DISTINCT * FROM payroll WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
 
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">

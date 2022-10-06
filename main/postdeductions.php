@@ -2,7 +2,7 @@
 include('header.php');
 $period=$_POST['period'];
 //
-$stafftyperesult=mysql_query("SELECT id,type_name from stafftype ");
+$stafftyperesult=mysqli_query($GLOBALS['connect'], ("SELECT id,type_name from stafftype ");
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-5">
@@ -28,8 +28,8 @@ $stafftyperesult=mysql_query("SELECT id,type_name from stafftype ");
 <div class="row">
 <div class="col-lg-12">          
 <form  action="payrollclass.php?period=<?php echo $period?>&&action=postdeductions" method="post">
-<?php  while($staff=mysql_fetch_array($stafftyperesult)) {
-//$staff=mysql_fetch_array($stafftyperesult) ;
+<?php  while($staff=mysqli_fetch_array($stafftyperesult)) {
+//$staff=mysqli_fetch_array($stafftyperesult) ;
 $sname=$staff['type_name'];
 $sid=$staff['id'];
 $len=count($staff);	
@@ -52,12 +52,12 @@ $len=count($staff);
 	</thead>
 	<tbody class="details">
 	<?php 
-	$seresult=mysql_query("SELECT id,staff_name as s ,payrollno as p,salary as sal FROM staff WHERE staff_type='$sid' ");
+	$seresult=mysqli_query($GLOBALS['connect'], ("SELECT id,staff_name as s ,payrollno as p,salary as sal FROM staff WHERE staff_type='$sid' ");
 
-	while($s=mysql_fetch_array($seresult)){ 
+	while($s=mysqli_fetch_array($seresult)){ 
 		$sid=$s['id'];
 		//get advance
-		$adv=mysql_fetch_array(mysql_query("SELECT totalbenefits as bens FROM payroll_tbl WHERE staffid='$sid' and payrollrun='$period' "));
+		$adv=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT totalbenefits as bens FROM payroll_tbl WHERE staffid='$sid' and payrollrun='$period' "));
 
 		$amnt=$adv['bens'];
 

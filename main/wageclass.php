@@ -4,15 +4,15 @@ if ($_GET['action']=="postwages") {
 //check if run already
 $sdate=$_REQUEST['sdate'];
 $edate=$_REQUEST['edate'];
-$result=mysql_query("SELECT id  FROM wageruns");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT id  FROM wageruns");
 $no=0;
-$num=mysql_num_rows($result);
+$num=mysqli_num_rows($result);
 $no=$num+1;
 $wageid="DDWG-WAGES-X9090-".$no;
 $y=date('Y');
 $m=date('m');
 $period=$y."/".$m;
-mysql_query("INSERT INTO wageruns(wageid,period)VALUES('$wageid','$period')");
+mysqli_query($GLOBALS['connect'], ("INSERT INTO wageruns(wageid,period)VALUES('$wageid','$period')");
 $datea=date('Y-m-d');
 
 
@@ -29,7 +29,7 @@ $datea=date('Y-m-d');
 				$tot = $_POST['tot'][$i];
 				$nhif = $_POST['nhif'][$i];
 				$nssf = $_POST['nssf'][$i];
-mysql_query("INSERT INTO wages(wageid,name,idno,mon,tue,wed,thur,fri,sat,sun,nhif,nssf,tot,startdate,enddate,dateadded)       values('$wageid','$name','$id','$mon','$tue','$wed','$thur','$fri','$sat','$sun','$nhif','$nssf','$tot','$sdate','$edate','$datea')");}
+mysqli_query($GLOBALS['connect'], ("INSERT INTO wages(wageid,name,idno,mon,tue,wed,thur,fri,sat,sun,nhif,nssf,tot,startdate,enddate,dateadded)       values('$wageid','$name','$id','$mon','$tue','$wed','$thur','$fri','$sat','$sun','$nhif','$nssf','$tot','$sdate','$edate','$datea')");}
 			echo "<script>alert('Success Wages Posted')</script>";
 				echo "<script>location.replace('wagesposted.php?wageid=$wageid&&sdate=$sdate&&edate=$edate')</script>";
 }

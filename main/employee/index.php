@@ -93,7 +93,7 @@ $user=$_SESSION['user'];
                     <?php
                     $user=$_SESSION['user'];
                     $query="SELECT * FROM staff where payrollno='$user'";
-                    $row=mysql_fetch_array(mysql_query($query));
+                    $row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ($query));
                     ?>
                     <div class="ibox-content">
                         <div class="row">
@@ -119,7 +119,7 @@ $user=$_SESSION['user'];
                                 <small class="stats-label">My Department</small>
                                 <?php
                                 $sid=$row['staff_type'];
-                                $dep=mysql_fetch_array(mysql_query("SELECT type_name as t from stafftype where id='$sid' "));
+                                $dep=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT type_name as t from stafftype where id='$sid' "));
                                 $d=$dep['t'];
                                 ?>
                                 <h4><?php echo $d ?></h4>

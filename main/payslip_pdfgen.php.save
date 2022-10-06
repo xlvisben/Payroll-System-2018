@@ -8,12 +8,12 @@ define('FPDF_FONTPATH','fonts/');
 $period=$_REQUEST['period'];
 $payrollid=$_REQUEST['payrollid'];
 //QUERY ALL DETAILS
-$datesquery=mysql_query("SELECT pt.staffid as id, pt.payrollno as payrollno ,pt.sname as name ,pt.salary as basic ,pt.lunch as lunch,pt.commission as commission ,(pt.salary+pt.overtime+pt.commission+pt.allowance+pt.lunch) as gross,pt.nhif as nhif ,pt.nssf as nssf,pt.advance as advance,pt.tax as paye,pt.taxableincome as taxableincome,pt.totaldeductions as totaldeductions,pt.daterun as payrolldate,pt.overtime as overtime ,pt.allowance as allowance,pt.netpay as net FROM payroll_tbl pt  WHERE pt.payrollrun='$period' and pt.id='$payrollid'");
-while ( $row=mysql_fetch_array($datesquery)) {
+$datesquery=mysqli_query($GLOBALS['connect'], ("SELECT pt.staffid as id, pt.payrollno as payrollno ,pt.sname as name ,pt.salary as basic ,pt.lunch as lunch,pt.commission as commission ,(pt.salary+pt.overtime+pt.commission+pt.allowance+pt.lunch) as gross,pt.nhif as nhif ,pt.nssf as nssf,pt.advance as advance,pt.tax as paye,pt.taxableincome as taxableincome,pt.totaldeductions as totaldeductions,pt.daterun as payrolldate,pt.overtime as overtime ,pt.allowance as allowance,pt.netpay as net FROM payroll_tbl pt  WHERE pt.payrollrun='$period' and pt.id='$payrollid'");
+while ( $row=mysqli_fetch_array($datesquery)) {
   $id=$row['id'];
-  $s=mysql_fetch_array(mysql_query("SELECT st.type_name as stype, s.national_id as natid ,s.accountno as bankacc ,s.bankcode as bcode FROM staff s  inner join stafftype st on st.id=s.staff_type  where s.id='$id'"));
+  $s=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT st.type_name as stype, s.national_id as natid ,s.accountno as bankacc ,s.bankcode as bcode FROM staff s  inner join stafftype st on st.id=s.staff_type  where s.id='$id'"));
     $bcode=$s['bcode'];
-    $b=mysql_fetch_array(mysql_query("SELECT b.bank as bank ,bb.bname as branch FROM staff s inner join bankbranch bb on bb.code=s.branchcode inner join banks b on s.bankcode=s.bank
+    $b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT b.bank as bank ,bb.bname as branch FROM staff s inner join bankbranch bb on bb.code=s.branchcode inner join banks b on s.bankcode=s.bank
 code where s.id='$id' "));
     $bank=$b['bank'];
     $stype=$s['stype'];

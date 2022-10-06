@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysql_query("SELECT * FROM smslogs ORDER BY id DESC ");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM smslogs ORDER BY id DESC ");
 
 
 ?>
@@ -54,7 +54,7 @@ $result=mysql_query("SELECT * FROM smslogs ORDER BY id DESC ");
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                     <td><?php echo $row["body"]?></td>
                     <td><?php echo $row["tel"]?></td>

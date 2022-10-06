@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $id=$_REQUEST['id'];
-$row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
+$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM staff where id='$id'"));
 ?>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -114,9 +114,9 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
                        <select name="stype" class="form-control">
                         <?php
                         $s=$row['staff_type'];
-                       $statusQuery = mysql_query("SELECT id, type_name from stafftype ");
+                       $statusQuery = mysqli_query($GLOBALS['connect'], ("SELECT id, type_name from stafftype ");
 
-                       while($st=mysql_fetch_array($statusQuery)){
+                       while($st=mysqli_fetch_array($statusQuery)){
                         $type=$st['type_name'];
                         ?>
 
@@ -143,7 +143,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
                <label class="font-normal">Bank Name</label>
                <?php 
                $bankcode=$row['bankcode'];
-               $b=mysql_fetch_array(mysql_query("SELECT bank FROM banks WHERE bcode='$bankcode'"));
+               $b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT bank FROM banks WHERE bcode='$bankcode'"));
                $bank=$b['bank'];
                if($bank!=NULL || $bank!="" ){
                	echo "<input value='$bank' class='form-control' readonly >";
@@ -152,8 +152,8 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
                 <div class="input-group">
                 <?php
                 $statusQuery="select bcode,bank from banks ";
-                $statusResult=mysql_query($statusQuery);
-                 $no = mysql_num_rows($statusResult);
+                $statusResult=mysqli_query($GLOBALS['connect'], ($statusQuery);
+                 $no = mysqli_num_rows($statusResult);
                 echo "<select data-placeholder='Choose A Bank' class='chosen-select' id='selector' name='bank' style='width:350px;' tabindex='2'>";
                   for ($i = 0 ; $i < $no ; ++$i)
                   {
@@ -179,7 +179,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
                  <?php 
                $bankcode=$row['bankcode'];
                $branchcode=$row['branchcode'];
-               $b=mysql_fetch_array(mysql_query("SELECT bname FROM bankbranch WHERE code='$branchcode' and bankCode='$bankcode'"));
+               $b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT bname FROM bankbranch WHERE code='$branchcode' and bankCode='$bankcode'"));
                $bank=$b['bname'];
                if($bank!=NULL || $bank!="" ){
                 echo "<input value='$bank' class='form-control' readonly >";
@@ -190,12 +190,12 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
                 <div class="input-group">
                     <?php
                     $statusQuery = "SELECT bc.code, bc.bname,b.bank FROM bankbranch bc inner join banks b on b.bcode=bc.bankCode inner join staff s on s.bankcode=b.bcode WHERE s.id='$id'";
-                    $statusResult = mysql_query($statusQuery);
-                    $no = mysql_num_rows($statusResult);
+                    $statusResult = mysqli_query($GLOBALS['connect'], ($statusQuery);
+                    $no = mysqli_num_rows($statusResult);
                      echo "<select data-placeholder='Choose an Branch' class='chosen-select' id='selector2' name='bankbranch' style='width:350px;' tabindex='2'>";
                     for ($i = 0; $i < $no; ++$i) {
                       $code=$statusRow[2];
-                      $banks=mysql_fetch_array(mysql_query("SELECT bc.bname,b.bank FROM bankbranch bc inner join bank b on b.bcode=bc.bankCode inner join staff s on s.bankcode=b.bcode WHERE s.id='$id'"));
+                      $banks=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT bc.bname,b.bank FROM bankbranch bc inner join bank b on b.bcode=bc.bankCode inner join staff s on s.bankcode=b.bcode WHERE s.id='$id'"));
                         $statusRow = mysql_fetch_row($statusResult);
                         echo "<option value='$statusRow[0]'>$statusRow[1]-Bank name : $statusRow[2]</option>";
                     }
@@ -239,7 +239,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
     <div role="tabpanel" class="tab-pane" id="advance">
     	<div class="ibox-content">
     	<?php
-    	$advanceresult=mysql_query("SELECT * FROM empvsadvances WHERE empid='$id' ORDER BY payrollPeriod DESC ");
+    	$advanceresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM empvsadvances WHERE empid='$id' ORDER BY payrollPeriod DESC ");
     	?>
     	<table class="table table-bordered">
     	<thead>
@@ -249,7 +249,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
     		<a class="btn btn-primary pull-right"  href="advance.php?id=<?php echo $id?>" >Add Advance</a>
     	</thead>
     	<tbody>
-    		<?php while($arow=mysql_fetch_array($advanceresult)){
+    		<?php while($arow=mysqli_fetch_array($advanceresult)){
     			?>
     			<td><?php echo $arow['payrollPeriod']?></td>
     			<td><?php echo $arow['dateadded']?></td>
@@ -266,7 +266,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
      <div role="tabpanel" class="tab-pane" id="deductions">
     	<div class="ibox-content">
     	<?php
-    	$deductresult=mysql_query("SELECT * FROM empdeductions WHERE employeeId='$id'");
+    	$deductresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM empdeductions WHERE employeeId='$id'");
     	?>
     	<table class="table table-bordered">
     	<thead>
@@ -275,9 +275,9 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
     		<a class="btn btn-success pull-right"  id="addBtn" >Add Deduction</a>
     	</thead>
     	<tbody>
-    		<?php while($drow=mysql_fetch_array($deductresult)){
+    		<?php while($drow=mysqli_fetch_array($deductresult)){
     			$did=$drow['empdeductionid'];
-    			$d=mysql_fetch_array(mysql_query("SELECT deduction as d FROM deductions WHERE id='$did'"));
+    			$d=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT deduction as d FROM deductions WHERE id='$did'"));
     			$dname=$d['d'];
     			?>
     			<td><?php echo $dname?></td>
@@ -315,8 +315,8 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM staff where id='$id'"));
                         <div class="input-group">
                     <?php
                     $statusQuery = "SELECT id,deduction FROM deductions";
-                    $statusResult = mysql_query($statusQuery);
-                    $no = mysql_num_rows($statusResult);
+                    $statusResult = mysqli_query($GLOBALS['connect'], ($statusQuery);
+                    $no = mysqli_num_rows($statusResult);
                      echo "<select data-placeholder='Choose an Deduction' class='form-control' id='selector3' name='deduction' style='width:350px;' tabindex='2'>";
                     for ($i = 0; $i < $no; ++$i) {
                         $statusRow = mysql_fetch_row($statusResult);

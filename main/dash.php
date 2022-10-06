@@ -1,30 +1,30 @@
 <?php
 include('header.php');
 $query="SELECT COUNT(id) as c  FROM users";
-$usr=mysql_fetch_array(mysql_query($query));
+$usr=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$query));
 
 $proj="SELECT COUNT(id) as c FROM staff";
-$veh=mysql_fetch_array(mysql_query($proj));
+$veh=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$proj));
 
 
 $sch="SELECT COUNT(id) as c   FROM payrollruns";
-$serv=mysql_fetch_array(mysql_query($sch));
+$serv=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$sch));
 
 
 $gr="SELECT COUNT(id) as c   FROM stafftype";
-$gar=mysql_fetch_array(mysql_query($gr));
+$gar=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$gr));
 
 
 $gr1="SELECT COUNT(id) as c   FROM users";
-$gar1=mysql_fetch_array(mysql_query($gr1));
+$gar1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$gr1));
 
 
 $main="SELECT * FROM settings";
-$mainquery=mysql_fetch_array(mysql_query($main));
+$mainquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$main));
 
 
 //$balquery="SELECT balance as bal FROM reconsiledbalance ORDER BY id DESC ";
-//$b=mysql_fetch_array(mysql_query($balquery));
+//$b=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$balquery));
 //$bal=$b['bal'];
 
 //current month
@@ -70,7 +70,7 @@ $m1name = date("F", mktime(0, 0, 0, $m1, 10));
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins">
-                        <?php// echo $serv['c']?></h1><br ><small> </small><br>
+                        <?php // echo $serv['c']?></h1><br ><small> </small><br>
                         <div class="font-bold text-navy"><br> <a href="addbranch.php" class="btn btn-danger">Add Bank Branch</a></div>
                     </div>
                 </div>
@@ -149,11 +149,11 @@ $m1name = date("F", mktime(0, 0, 0, $m1, 10));
                            <body>
                           <tr> <th>Department</th><th>Count</th></tr>
                                <?php
-                               $result=mysql_query("SELECT id,type_name from  stafftype");
-                               while ( $row=mysql_fetch_array($result)) {
+                               $result=mysqli_query($GLOBALS['connect'],"SELECT id,type_name from  stafftype");
+                               while ( $row=mysqli_fetch_array($result)) {
                                 $r=$row['type_name'];
                                 $rid=$row['id'];
-                                $count=mysql_fetch_array(mysql_query("SELECT COUNT(id) as c FROM staff WHERE staff_type='$rid'"));
+                                $count=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],"SELECT COUNT(id) as c FROM staff WHERE staff_type='$rid'"));
                                 $c=$count['c'];
                                echo "<tr bgcolor='#DEEDEE'><td>$r</td><td>$c</td></tr>";
                             }
@@ -176,7 +176,7 @@ $m1name = date("F", mktime(0, 0, 0, $m1, 10));
                     <?php
                     $user=$_SESSION['user'];
                     $query="SELECT * FROM users where username='$user'";
-                    $row=mysql_fetch_array(mysql_query($query));
+                    $row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'],$query));
                     ?>
                     <div class="ibox-content">
                         <div class="row">

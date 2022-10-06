@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysql_query("SELECT * FROM stafftype ORDER BY id ASC");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM stafftype ORDER BY id ASC");
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
@@ -56,7 +56,7 @@ $result=mysql_query("SELECT * FROM stafftype ORDER BY id ASC");
                                                       <?php
                                      $statusQuery="select id,name from dept";
                                         $statusResult=queryMysql($statusQuery);
-                                        $no = mysql_num_rows($statusResult);
+                                        $no = mysqli_num_rows($statusResult);
                                       echo "<select name='dept' type='text' class='form-control' >";
                                     for ($i = 0 ; $i < $no ; ++$i)
                                       {
@@ -159,12 +159,12 @@ $result=mysql_query("SELECT * FROM stafftype ORDER BY id ASC");
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                     <td><?php echo $row["type_name"] ?></td>
                     <?php
                     $d=$row['deptid'];
-                    $dd=mysql_fetch_array(mysql_query("SELECT name from dept where id='$d'"));
+                    $dd=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT name from dept where id='$d'"));
                     ?>
                     <td><?php echo $dd['name']?></td>
                     <td><a class="btn btn-success btn-xs" href="stafftypeedit.php?id=<?php echo $row['id'] ?>">Edit</a></td>

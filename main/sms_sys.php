@@ -12,7 +12,7 @@ $sid = 'AC113452ba4e043e9e6da9ad23748e2613';
 $token = 'e8e3d4395fd9e5ac61e42aa8f5c3b63b';
 $client = new Client($sid, $token);
 //get values to be smsed
-$fuel=mysql_fetch_array(mysql_query("SELECT * FROM fuellogs ORDER BY id DESC LIMIT 1"));
+$fuel=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM fuellogs ORDER BY id DESC LIMIT 1"));
 $veh=$fuel['vehicle'];
 $date=$fuel['dateadded'];
 $pur=$fuel['purchaser'];

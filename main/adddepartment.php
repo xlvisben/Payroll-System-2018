@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$result=mysql_query("SELECT * FROM dept ORDER BY name ASC");
+$result=mysqli_query($GLOBALS['connect'],"SELECT * FROM dept ORDER BY name ASC");
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
@@ -142,7 +142,7 @@ $result=mysql_query("SELECT * FROM dept ORDER BY name ASC");
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                     <td><?php echo $row["name"] ?></td>
                     <td><a class="btn btn-success btn-xs" href="deptedit.php?id=<?php echo $row['id'] ?>">Edit</a></td>

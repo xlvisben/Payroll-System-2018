@@ -2,8 +2,8 @@
 include('header.php');
 $id=$_REQUEST['id'];
 $query="SELECT  * FROM projectstatus where id='$id'";
-$result=mysql_query($query);
-$row=mysql_fetch_array($result);
+$result=mysqli_query($GLOBALS['connect'], ($query);
+$row=mysqli_fetch_array($result);
 ?>
           
            <div class="row wrapper border-bottom white-bg page-heading">

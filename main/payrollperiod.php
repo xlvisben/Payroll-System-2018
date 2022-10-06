@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $period=$_POST['period'];
-$result=mysql_query("SELECT DISTINCT * FROM payroll WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT DISTINCT * FROM payroll WHERE status='1' and payrollrun='$period' ORDER BY id ASC ");
 
 ?>
     <link href="dataTables/dataTables.bootstrap.css" rel="stylesheet" >
@@ -57,7 +57,7 @@ $result=mysql_query("SELECT DISTINCT * FROM payroll WHERE status='1' and payroll
             </thead> 
 
             <tbody> 
-            <?php while ($row = mysql_fetch_array($result)) { ?>           
+            <?php while ($row = mysqli_fetch_array($result)) { ?>           
                 <tr > 
                   <td><?php echo $row["payrollrun"]?></td> 
                     <td><?php echo $row["sname"]?></td>

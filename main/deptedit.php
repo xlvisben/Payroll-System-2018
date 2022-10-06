@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $id=$_REQUEST['id'];
-$result=mysql_query("SELECT * FROM dept WHERE id='$id'");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT * FROM dept WHERE id='$id'");
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">

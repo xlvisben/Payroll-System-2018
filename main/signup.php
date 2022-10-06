@@ -8,7 +8,7 @@ if ($_POST) {
 	$password=md5(sanitizeString($_POST['password']));
 
 	$query="INSERT INTO users (username,fullname,email,password)VALUES('$username','$fname','$email','$password');";
-	mysql_query($query);
+	mysqli_query($GLOBALS['connect'], ($query);
 	if (mysql_error()) {
 		# code...
 		echo "<script>alert('Error signing up')</script>";

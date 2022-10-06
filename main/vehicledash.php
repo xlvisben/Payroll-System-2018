@@ -1,8 +1,8 @@
 <?php
 include('header.php');
-$row=mysql_fetch_array(mysql_query("SELECT COUNT(id) as c From vehicle where status='0'"));
-$row1=mysql_fetch_array(mysql_query("SELECT COUNT(id) as c From servicelogs "));
-$row2=mysql_fetch_array(mysql_query("SELECT COUNT(id) as c From garagelogs"));
+$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c From vehicle where status='0'"));
+$row1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c From servicelogs "));
+$row2=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) as c From garagelogs"));
 
 //current month
 $m=date('m'); 
@@ -25,23 +25,23 @@ $m0name = date("F", mktime(0, 0, 0, $m0, 10));
 $m1name = date("F", mktime(0, 0, 0, $m1, 10));
 
 //get income data
-$income=mysql_fetch_array(mysql_query("SELECT SUM(amountpaid) as tot from receipts where dateadded>='$mstart' && dateadded<='$mend'"));
+$income=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(amountpaid) as tot from receipts where dateadded>='$mstart' && dateadded<='$mend'"));
 $i=$income['tot'];
 
-$income1=mysql_fetch_array(mysql_query("SELECT SUM(amountpaid) as tot from receipts where dateadded>='$m0start' && dateadded<='$m0end'"));
+$income1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(amountpaid) as tot from receipts where dateadded>='$m0start' && dateadded<='$m0end'"));
 $i1=$income1['tot'];
 
-$income2=mysql_fetch_array(mysql_query("SELECT SUM(amountpaid) as tot from receipts where dateadded>='$m1start' && dateadded<='$m1end'"));
+$income2=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(amountpaid) as tot from receipts where dateadded>='$m1start' && dateadded<='$m1end'"));
 $i2=$income2['tot'];
 
 //get expense data
-$exp=mysql_fetch_array(mysql_query("SELECT SUM(voucher_amount) as tot from voucher where dateadded>='$mstart' && dateadded<='$mend'"));
+$exp=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(voucher_amount) as tot from voucher where dateadded>='$mstart' && dateadded<='$mend'"));
 $e=$exp['tot'];
 
-$exp1=mysql_fetch_array(mysql_query("SELECT SUM(voucher_amount) as tot from voucher where dateadded>='$m0start' && dateadded<='$m0end'"));
+$exp1=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(voucher_amount) as tot from voucher where dateadded>='$m0start' && dateadded<='$m0end'"));
 $e1=$exp1['tot'];
 
-$exp2=mysql_fetch_array(mysql_query("SELECT SUM(voucher_amount) as tot from voucher where dateadded>='$m1start' && dateadded<='$m1end'"));
+$exp2=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(voucher_amount) as tot from voucher where dateadded>='$m1start' && dateadded<='$m1end'"));
 $e2=$exp2['tot'];
 
 ?>
@@ -99,7 +99,7 @@ $e2=$exp2['tot'];
                               <?php
                                      $statusQuery="select vcategory from vcat";
                                         $statusResult=queryMysql($statusQuery);
-                                        $no = mysql_num_rows($statusResult);
+                                        $no = mysqli_num_rows($statusResult);
                                       echo "<select name='vitem' type='text' class='form-control' >";
                                     for ($i = 0 ; $i < $no ; ++$i)
                                       {
@@ -140,10 +140,10 @@ $e2=$exp2['tot'];
             <table class="table table-stripped table-bordered">
               <?php
               $query="SELECT plate as vi  FROM vehicle ORDER BY plate ASC ";
-              $result=mysql_query($query);
+              $result=mysqli_query($GLOBALS['connect'], ($query);
               ?>
               <tbody>
-              <?php while ($row = mysql_fetch_array($result)) { ?>     
+              <?php while ($row = mysqli_fetch_array($result)) { ?>     
               <tr>
               <td><?php echo $row['vi'];?></td>
               </tr>

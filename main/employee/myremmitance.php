@@ -3,9 +3,9 @@ include('header.php');
 $user=$_SESSION['user'];
 $period=$_REQUEST['period'];
 if ($period=="all") {
-    $seresult=mysql_query("SELECT * FROM payroll_tbl where payrollno='$user' ");
+    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl where payrollno='$user' ");
 }elseif ($period!="all") {
-    $seresult=mysql_query("SELECT * FROM payroll_tbl where status='1'  AND payrollno='$user' and payrollrun='$period'");
+    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl where status='1'  AND payrollno='$user' and payrollrun='$period'");
 }
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -63,13 +63,13 @@ if ($period=="all") {
     </thead>
     <tbody>
     <?php 
-       while($s=mysql_fetch_array($seresult)){ ?>
+       while($s=mysqli_fetch_array($seresult)){ ?>
     <tr>
         <td><?php echo $s['payrollno']?> </td>
         <td><?php echo $s['sname']?> </td>
         <?php
         $id=$s['staffid'];
-        $bank=mysql_fetch_array(mysql_query("SELECT bankcode,branchcode,accountno,accountname from staff where id='$id'"));
+        $bank=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT bankcode,branchcode,accountno,accountname from staff where id='$id'"));
         ?>
         <td><?php echo $bank['bankcode']?> </td>
         <td><?php echo $bank['branchcode']?> </td>

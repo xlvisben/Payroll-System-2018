@@ -5,17 +5,17 @@ if(isset($_SESSION['loggedIn'])){
 if(($_SESSION['loggedIn'])==true){
         $user=$_SESSION['user'];
         $year=date('Y');
-        $query=mysql_query("select account_type as usr from users where username='$user'");
-        $row = mysql_fetch_assoc($query);
+        $query=mysqli_query($GLOBALS['connect'], ("select account_type as usr from users where username='$user'");
+        $row = mysqli_fetch_assoc($query);
         $main="SELECT * FROM settings";
-        $mainquery=mysql_fetch_array(mysql_query($main));
+        $mainquery=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ($main));
         $yr1=date('Y');
         $loc=$mainquery['main_name'];
-        $abal=mysql_fetch_array(mysql_query("SELECT available_balance as a from cashtransactions where fyr='$yr1' ORDER BY id DESC LIMIT 1"));
+        $abal=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT available_balance as a from cashtransactions where fyr='$yr1' ORDER BY id DESC LIMIT 1"));
         $bal=$abal['a'];
         $yr=date('d-m-Y');
-        $msg=mysql_query("SELECT COUNT(id) FROM messages WHERE touser='$user' && status='0'");
-        $no=mysql_num_rows($msg);
+        $msg=mysqli_query($GLOBALS['connect'], ("SELECT COUNT(id) FROM messages WHERE touser='$user' && status='0'");
+        $no=mysqli_num_rows($msg);
 if (file_exists("img/$user.jpg")){
     $image="img/$user.jpg";
     }else

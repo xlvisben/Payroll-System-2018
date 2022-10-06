@@ -7,9 +7,9 @@ $pass=SanitizeString($_REQUEST['token']);
 $query="SELECT payrollno from staff where staff_email='$email' and national_id='$pass'";
 $result=queryMysql($query);
 $query2="SELECT payrollno AS typer from staff where staff_email='$email'";
-$result1=mysql_query($query2);
-$num = mysql_num_rows($result);
-if (mysql_num_rows($result)!=0)
+$result1=mysqli_query($GLOBALS['connect'], ($query2);
+$num = mysqli_num_rows($result);
+if (mysqli_num_rows($result)!=0)
 {
 
 

@@ -62,15 +62,15 @@ $period=$_REQUEST['period'];
     </thead>
     <tbody>
     <?php 
-    $seresult=mysql_query("SELECT * FROM payroll_tbl where payrollrun='$period' and status='1' ");
+    $seresult=mysqli_query($GLOBALS['connect'], ("SELECT * FROM payroll_tbl where payrollrun='$period' and status='1' ");
 
-    while($s=mysql_fetch_array($seresult)){ ?>
+    while($s=mysqli_fetch_array($seresult)){ ?>
     <tr>
         <td><?php echo $s['payrollno']?> </td>
         <td><?php echo $s['sname']?> </td>
         <?php
         $id=$s['staffid'];
-        $bank=mysql_fetch_array(mysql_query("SELECT * from staff where id='$id'"));
+        $bank=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * from staff where id='$id'"));
         ?>
         <td><?php echo $bank['pinno']?> </td>
         <td><?php echo $bank['salary']?> </td>
@@ -94,7 +94,7 @@ $period=$_REQUEST['period'];
         <td></td>
         <td><strong>Total</strong></td>
         <?php
-        $rs=mysql_fetch_array(mysql_query("SELECT SUM(tax) as saltot FROM payroll_tbl where payrollrun='$period' and status='1' "));
+        $rs=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT SUM(tax) as saltot FROM payroll_tbl where payrollrun='$period' and status='1' "));
         $tt=$rs['saltot'];
         $t=round($tt,0);
         ?>

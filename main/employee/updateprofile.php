@@ -3,7 +3,7 @@
 require_once('header.php');
 //$id=$_REQUEST['id'];
 $user=$_SESSION['user'];
-$row=mysql_fetch_array(mysql_query("SELECT * FROM staff where payrollno='$user'"));
+$row=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ("SELECT * FROM staff where payrollno='$user'"));
 //update Details
 
 

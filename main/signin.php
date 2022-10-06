@@ -4,18 +4,19 @@ session_start();
 if($_GET['action']=="signin"){
 $email=SanitizeString($_REQUEST['email']);
 $pass=SanitizeString($_REQUEST['token']);
+echo $pass;
 $query="select username from users where email='$email' and password='$pass'";
 $result=queryMysql($query);
 $query2="select account_type AS typer from users where email='$email'";
-$result1=mysql_query($query2);
-$num = mysql_num_rows($result);
-if (mysql_num_rows($result)!=0)
+$result1=mysqli_query($GLOBALS['connect'], $query2);
+$num = mysqli_num_rows($result);
+if (mysqli_num_rows($result)!=0)
 {
 
 
 for ($j = 0 ; $j < $num ; ++$j)
  {
-    $row = mysql_fetch_row($result);
+    $row = mysqli_fetch_row($result);
     $user=$row[0];
  }
 //saveUser($usersName);

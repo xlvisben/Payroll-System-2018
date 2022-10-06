@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 $id=$_REQUEST['id'];
-$result=mysql_fetch_array( mysql_query("SELECT * FROM stafftype WHERE  id ='$id'"));
+$result=mysqli_fetch_array( mysqli_query($GLOBALS['connect'], ("SELECT * FROM stafftype WHERE  id ='$id'"));
 ?>
   <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
@@ -57,7 +57,7 @@ $result=mysql_fetch_array( mysql_query("SELECT * FROM stafftype WHERE  id ='$id'
                                                       <?php
                                      $statusQuery="select id,name from dept";
                                         $statusResult=queryMysql($statusQuery);
-                                        $no = mysql_num_rows($statusResult);
+                                        $no = mysqli_num_rows($statusResult);
                                       echo "<select name='dept' type='text' class='form-control' >";
                                     for ($i = 0 ; $i < $no ; ++$i)
                                       {

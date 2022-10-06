@@ -7,10 +7,10 @@
                     <?php
                     $statusQuery = "select bcode,bank from banks";
                     $statusResult = queryMysql($statusQuery);
-                    $no = mysql_num_rows($statusResult);
+                    $no = mysqli_num_rows($statusResult);
                     echo "<select name='bank' type='text' class='form-control' >";
                     for ($i = 0; $i < $no; ++$i) {
-                        $statusRow = mysql_fetch_row($statusResult);
+                        $statusRow = mysqli_fetch_row($statusResult);
                         echo "<option value='$statusRow[0]'>$statusRow[1]</option>";
                     }
 
@@ -21,10 +21,10 @@
                     <?php
                     $statusQuery = "select code,bname from bankbranch";
                     $statusResult = queryMysql($statusQuery);
-                    $no = mysql_num_rows($statusResult);
+                    $no = mysqli_num_rows($statusResult);
                     echo "<select name='bankbranch' type='text' class='form-control' >";
                     for ($i = 0; $i < $no; ++$i) {
-                        $statusRow = mysql_fetch_row($statusResult);
+                        $statusRow = mysqli_fetch_row($statusResult);
                         echo "<option value='$statusRow[0]'>$statusRow[1]</option>";
                     }
 

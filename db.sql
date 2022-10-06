@@ -1305,15 +1305,16 @@ INSERT INTO `leaves` (`id`, `name`, `days`) VALUES
 --
 
 DROP TABLE IF EXISTS `messages`;
-CREATE TABLE IF NOT EXISTS `messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `staffid` int(11) NOT NULL,
-  `msg` text NOT NULL,
-  `tel` varchar(20) NOT NULL,
-  `sender` varchar(20) NOT NULL,
-  `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `messages` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `staffid` int(11) NOT NULL,
+ `msg` text NOT NULL,
+ `touser` varchar(20) NOT NULL,
+ `uname` varchar(20) NOT NULL,
+ `status` tinyint(1) NOT NULL DEFAULT 0,
+ `datesent` timestamp NOT NULL DEFAULT current_timestamp(),
+ PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
 
 -- --------------------------------------------------------
 

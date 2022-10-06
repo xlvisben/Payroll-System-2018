@@ -11,13 +11,13 @@ include("../../lib/inc/chartphp_dist.php");
 
 include("../../../connect.php");
 $votequery="SELECT itemname from vote_item Order by itemname ASC";
-$voterow=mysql_fetch_array(mysql_query($votequery));
+$voterow=mysqli_fetch_array(mysqli_query($GLOBALS['connect'], ($votequery));
 $item=$voterow['itemname'];
-$result=mysql_query("SELECT amount as a,vote_item as v FROM votes");
+$result=mysqli_query($GLOBALS['connect'], ("SELECT amount as a,vote_item as v FROM votes");
 
-$no=mysql_num_rows($result);
+$no=mysqli_num_rows($result);
 
-while ($yaxis=mysql_fetch_array($result)) {
+while ($yaxis=mysqli_fetch_array($result)) {
 	# code...
 
 $p = new chartphp();

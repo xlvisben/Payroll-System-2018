@@ -9,10 +9,10 @@ if ($_POST) {
 	$bbal=sanitizeString($_POST['bbal']);
 	$user=$_SESSION['user'];
 	$query="INSERT INTO bankdetails(bankname,bankbranch,dateadded,accountno)Values('$bname','$bbranch','$datea','$acc')";
-	mysql_query($query);
+	mysqli_query($GLOBALS['connect'], ($query);
 	$addlog="INSERT INTO bankbalance (account,amountin,recordedby,dateadded)
 	VALUES('$acc','$bbal','$user','$datea')";
-	mysql_query($addlog);
+	mysqli_query($GLOBALS['connect'], ($addlog);
 	if (!mysql_error()) {
 		# code...
 		//echo "<script>location.replace('banks.php')</script>";
